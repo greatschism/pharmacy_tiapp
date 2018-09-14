@@ -360,9 +360,6 @@ function didPostlayoutPrompt(e) {
 	    		$.autofillView.show();
 	    	}
     		$.autoFillSwt.setValue(true, isWindowOpen);
-			$.reminderRefillAttr.applyProperties($.createStyle({
-				classes : ["disabled-text-color"]
-			}));
 			$.reminderRefillView.applyProperties($.createStyle({
 				classes : ["auto-height", "inactive-lighter-bg-color"]
 			}));
@@ -1002,9 +999,6 @@ function didSuccessAutoFill(result, passthrough) {
 			$.autoFillChangeDateView.height = 0;
 			$.autoFillChangeDateSeperator.height = 0;
 		}
-		$.reminderRefillAttr.applyProperties($.createStyle({
-			classes : ["disabled-text-color"]
-		}));
 		$.reminderRefillView.applyProperties($.createStyle({
 			classes : ["auto-height", "inactive-lighter-bg-color"]
 		}));
@@ -1024,9 +1018,6 @@ function didSuccessAutoFill(result, passthrough) {
 			$.autoFillChangeDateView.height = 0;
 			$.autoFillChangeDateSeperator.height = 0;
 		}
-		$.reminderRefillAttr.applyProperties($.createStyle({
-			classes : ["attributed"]
-		}));
 		$.reminderRefillView.applyProperties($.createStyle({
 			classes : ["auto-height", "bg-color"]
 		}));
