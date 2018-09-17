@@ -645,9 +645,10 @@ function prepareData(result, passthrough) {
 		 * to avoid that, convert them into
 		 * Number
 		 */
+		
 		_.extend(store, {
-			title : Alloy.CFG.is_storename_enabled ? $.utilities.ucword(store.store_name) : $.utilities.ucword(store.addressline1),
-			subtitle : Alloy.CFG.is_storename_enabled ? ($.utilities.ucword(store.addressline1) + $.utilities.ucword(store.city)) : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip,
+			title : Alloy.CFG.is_storename_enabled == "1" ? $.utilities.ucword(store.store_name) : $.utilities.ucword(store.addressline1),
+			subtitle : (Alloy.CFG.is_storename_enabled == "1" ? ($.utilities.ucword(store.addressline1) + ", "+ $.utilities.ucword(store.city)) : $.utilities.ucword(store.city)) + ", " + store.state + ", " + store.zip,
 			detailType : "inactive",
 			iconClasses : iconClasses,
 			latitude : Number(store.latitude),
