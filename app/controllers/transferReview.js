@@ -1,5 +1,6 @@
 var args = $.args,
-    moment = require("alloy/moment");
+    moment = require("alloy/moment"),
+    logger = require("logger");
 
 function init() {
 	$.tableView.bottom = $.tableView.bottom + $.transferBtn.height + $.transferBtn.bottom;
@@ -247,9 +248,10 @@ function didGetStore(result, passthrough) {
 
 function updateStore() {
 	var store = args.store;
+	logger.debug("\n\n\n store details: ", JSON.stringify(store), "\n\n\n");
 	$.storeNameLbl.text = store.storeName;
-	$.storeTitleLbl.text = store.title;
-	$.storeSubtitleLbl.text = store.subtitle;
+	$.storeTitleLbl.text = store.addressline1;
+	$.storeSubtitleLbl.text = store.city + ", " + store.state + ", " + store.zip;
 	$.storePhoneAttr.setHtml(String.format($.strings.attrPhone, store.phone_formatted));
 }
 
