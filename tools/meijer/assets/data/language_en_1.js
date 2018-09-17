@@ -54,7 +54,11 @@ module.exports = {
 		"registerHintRxFormat" : "Rx number",
 		"childAddHintRxNo" : "Rx number",
 		"familyMemberAddPrescHintRxNo" : "Rx number",
-		"refillTypeValRx" : "Your Rx number is incorrect, please enter a valid prescription number found on your prescription bottle."
 
+		"refillTypeValRx" : "Your Rx number is incorrect, please enter a valid prescription number found on your prescription bottle.",
+		"transferTypeValRxInvalid" : "Sorry, we don't recognize this prescription number. Please confirm that it's exactly what appears on your prescription label.",
+		"registerValRxInvalid" : "Your Rx number is incorrect, please enter a valid prescription number found on your prescription bottle.",
+		"childAddValRxNoInvalid" : "Sorry, we don't recognize this prescription number. Please confirm that it's exactly what appears on the prescription label.",
+		"familyMemberAddPrescValRxNoInvalid" : "Sorry, we don't recognize this prescription number. Please confirm that it's exactly what appears on your prescription label."
 	}
 };
