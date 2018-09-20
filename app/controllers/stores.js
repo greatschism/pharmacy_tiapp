@@ -962,7 +962,8 @@ function didChangeSearch(e) {
 	 */
 	var value = e.value;
 	if (value.length >= searchLenMin) {
-		var url = Alloy.CFG.geocode_url.concat(value);
+		var url = String.format(Alloy.CFG.geocode_url, Alloy.CFG.geocode_api_key);
+		url = url.concat(value);
 		$.logger.debug(TAG, "request", url);
 		httpClient = $.httpClient.request({
 			url : url,
@@ -1370,7 +1371,8 @@ function didRegionchanged(e) {
 	 */
 	var latitude = e.latitude,
 	    longitude = e.longitude,
-	    url = Alloy.CFG.reverse_geocode_url.concat((latitude + "," + longitude));
+	    url = String.format(Alloy.CFG.reverse_geocode_url, Alloy.CFG.geocode_api_key);
+	    url = url.concat((latitude + "," + longitude));
 	$.logger.debug(TAG, "request", url);
 	httpClient = $.httpClient.request({
 		url : url,
