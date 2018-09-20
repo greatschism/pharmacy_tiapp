@@ -13,9 +13,11 @@
 		<item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
 	</style>
 	<style name="Material.ProgressDialog" parent="Theme.AppCompat.Light.Dialog">
+		<!--Required on pre-lollipop, will make entire dialog transparent on lollipop-->
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<!--Required on pre-lollipop, will make entire dialog transparent on lollipop-->
 		<item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
 		<item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
-    		<item name="android:datePickerStyle">@style/MyDatePicker</item>
 	</style>
 	<style name="Material.EditText" parent="@android:style/Widget.EditText">
 		<item name="android:background">@null</item>
@@ -39,11 +41,13 @@
 		<item name="dialogTheme">@style/Material.AlertDialog</item>
 		<item name="alertDialogTheme">@style/Material.AlertDialog</item>
 		<item name="android:dialogTheme">@style/Material.ProgressDialog</item>
-    		<item name="android:datePickerStyle">@style/MyDatePicker</item>
 		<item name="android:alertDialogTheme">@style/Material.ProgressDialog</item>
 		<item name="android:editTextStyle">@style/Material.EditText</item>
 		<item name="android:listViewStyle">@style/Material.ListView</item>
 		<item name="drawerArrowStyle">@style/Material.DrawerArrow</item>
+		<!--action bar shadow for pre-lollipop-->
+		<item name="android:windowContentOverlay">@drawable/actionbar_shadow</item>
+		<!--action bar shadow for pre-lollipop-->
 	</style>
 	<style name="Theme.Material.NoActionBar" parent="Theme.Material">
 		<item name="windowActionBar">false</item>
@@ -57,8 +61,5 @@
 	</style>
 	<style name="Theme.Material.Splash" parent="Theme.Material.NoActionBar">
 		<item name="android:windowBackground">@drawable/background</item>
-	</style>
-	<style name="MyDatePicker" parent="android:Widget.Material.DatePicker">
-	    	<item name="android:datePickerMode">spinner</item>
 	</style>
 </resources>
