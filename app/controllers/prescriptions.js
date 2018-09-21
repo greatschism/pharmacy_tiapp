@@ -1523,7 +1523,7 @@ function processSections(prescription, daysLeft) {
 					});
 			}
 			else{
-			if (prescription.get("anticipated_refill_date")) {
+			if (prescription.get("anticipated_refill_date") && args.navigationFrom !== "specialtyGrouping") {
 				/**
 				 * if  anticipated_refill_date is <= upcomingRefillDaysBeforeARD - move to ready for refill
 				 * */
