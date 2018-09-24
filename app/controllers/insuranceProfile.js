@@ -323,8 +323,7 @@ function didSuccess(result, passthrough) {
 			fromInsurance : true,
 			resultMessage : result.message,
 			phone : null
-		},
-		stack : true
+		}
 	});
 
 }
