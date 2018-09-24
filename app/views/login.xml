@@ -8,7 +8,7 @@
 			<Widget id="passwordTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-done" onReturn="didClickLogin" onClick="didChangeToggle"/>
 		</View>
 		<View id="autoLoginView" class="margin-top margin-left margin-right auto-height margin-bottom" onPostlayout="didPostlayout">
-			<Label id="autoLoginLbl" class="left right-40 h4 accessibility-disabled" />
+			<Label id="autoLoginLbl" class="left right-20 h4 accessibility-disabled" />
 			<Widget id="autoLoginSwt" src="ti.switch" class="right swt" onChange="didChangeAutoLogin"/>
 		</View>
 		<Button id="loginBtn" class="primary-bg-color primary-font-color primary-border margin-top-large" onClick="didClickLogin" />
