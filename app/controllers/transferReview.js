@@ -105,8 +105,7 @@ function didSuccess(result, passthrough) {
 		ctrlArguments : {
 			store : args.store,
 			prescription : args.prescription
-		},
-		stack : true
+		}
 	});
 }
 
