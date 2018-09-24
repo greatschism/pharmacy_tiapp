@@ -148,8 +148,8 @@
 			"code_pickup_timegroup": "Pickup Time Group"
 		},
 		"appconfig_url": "https://applink.mscripts.com/app_handler_carbon/getappjconfig",
-		"geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&components=country:US&address=",
-		"reverse_geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&latlng=",
+		"geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&components=country:US&key=%s&address=",
+		"reverse_geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&key=%s&latlng=",
 		"distancematrix_url": "https://maps.googleapis.com/maps/api/distancematrix/json?mode=driving&origins=%s&destinations=%s",
 		"force_update": false,
 		"force_reload_after_update": true,
@@ -175,7 +175,8 @@
 		"latest_feedback_app_version": "latestFeedbackAppVersion",
 		"lastest_logout_explicit": "latestLogoutExplicit",
 		"touch_id_enabled": "touchIDEnabled",
-		"auto_login_enabled": "autoLoginEnabled"
+		"auto_login_enabled": "autoLoginEnabled",
+		"show_pickup_timegroup_option": "1"
 	},
 	"env:development": {},
 	"env:test": {},

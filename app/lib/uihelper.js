@@ -605,7 +605,6 @@ var Helper = {
 			showControls : OS_IOS,
 			saveToPhotoGallery : false,
 			mediaTypes : [Titanium.Media.MEDIA_TYPE_PHOTO],
-			overlay : overlay,
 			success : function didSuccess(e) {
 				var blob = e.media;
 				if (blob) {
