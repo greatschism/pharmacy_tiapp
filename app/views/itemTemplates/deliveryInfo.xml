@@ -1,0 +1,26 @@
+<Alloy autoStyle="true">
+	<TableViewRow id="row">
+		<View id="deliveryInfoView" class="margin-left-extra-large margin-right-extra-large auto-height vgroup">
+			<View class="margin-top-medium auto-height">
+				<Label id="deliverAddressPromptLbl" text="Address" class="h5 top left inactive-fg-color" />
+				<Label id="deliverAddressReplyLbl" class="right h5 bottom margin-left width-50 txt-right" />
+			</View>
+			<View class="margin-top-medium auto-height">
+				<Label id="deliverOptionPromptLbl" text="Delivery Method" class="h5 top left inactive-fg-color" />
+				<Label id="deliverOptionReplyLbl" class="right h5 bottom margin-left width-50" onClick="didClickChangeDelivery"	/>
+			</View>
+			<View class="margin-top-medium auto-height">
+				<Label id="deliverSubtotalPromptLbl" text="Subtotal" class="h5 top left inactive-fg-color" />
+				<Label id="deliverSubtotalReplyLbl" class="right h5 bottom margin-left width-50" />
+			</View>
+			<View class="margin-top-medium auto-height">
+				<Label id="deliveryCostPromptLbl" text="Delivery" class="h5 top left inactive-fg-color" />
+				<Label id="deliveryCostReplyLbl" class="right h5 bottom margin-left width-50" />
+			</View>
+			<View class="margin-top-medium auto-height">
+				<Label id="orderTotalPromptLbl" text="Order Total" class="h5 top left inactive-fg-color" />
+				<Label id="orderTotalReplyLbl" class="right h5 bottom margin-left width-50" />
+			</View>
+		</View>
+	</TableViewRow>
+</Alloy>

@@ -9,6 +9,7 @@
 			<View id="detailView" class="right width-35 auto-height vgroup">
 				<Label id="detailTitleLbl" class="right txt-right wrap-disabled" />
 				<Label id="detailSubtitleLbl" class="margin-top-small right txt-right wrap-disabled" />
+				<Label id="detailTertiaryLbl" class="margin-top-small right txt-right wrap-disabled" />
 			</View>
 		</View>
 	</TableViewRow>

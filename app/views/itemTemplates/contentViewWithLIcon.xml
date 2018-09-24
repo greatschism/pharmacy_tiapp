@@ -5,6 +5,7 @@
 			<View id="contentView" class="margin-top margin-bottom margin-right auto-height vgroup accessibility-disabled">
 				<Label id="titleLbl" class="left h4 accessibility-disabled" />
 				<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color accessibility-disabled" />
+				<Label id="detailLbl" class="margin-top-small left positive-fg-color accessibility-disabled" />
 			</View>
 		</View>
 	</TableViewRow>

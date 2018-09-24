@@ -1,16 +1,21 @@
 var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
+    logger = require("logger"),
     prescriptions = [],
     rows,
     swipeOptions,
     currentDoctor,
     defaultImg,
-    isWindowOpen;
+    isWindowOpen,
+    showHiddenDoctors = false;
 
 function init() {
 	defaultImg = $.uihelper.getImage("default_profile").image;
 	swipeOptions = [{
 		action : 1,
+		title : $.strings.doctorsSwipeOptHide
+	}, {
+		action : 2,
 		title : $.strings.doctorsSwipeOptRemove,
 		type : "negative"
 	}];
@@ -146,12 +151,31 @@ function didGetPrescriptions(result, passthrough) {
 	}
 	rows = [];
 	var data = [];
+
+	logger.debug("\n\n\n processing doctor model \n\n\n");
+
+	logger.debug(JSON.stringify(Alloy.Collections.doctors), "\n\n\n");
+
 	Alloy.Collections.doctors.each(function(model) {
-		var row = processModel(model);
-		data.push(row.getView());
-		rows.push(row);
+		/*
+		 * ALBD-160 : Hide/show doctors based on flag is_hidden
+		 *
+		 */
+		logger.debug("\n\n\n in for each\t", JSON.stringify(model), " \n\n\n");
+
+		if (showHiddenDoctors) {
+			model.set("is_hidden", 0);
+		}
+
+		if (model.get("is_hidden") == 0) {
+			logger.debug("\n\n\n show doc \t", JSON.stringify(model), "\n\n\n");
+			var row = processModel(model);
+			data.push(row.getView());
+			rows.push(row);
+		}
 	});
 	$.tableView.setData(data);
+	showHiddenDoctors = showHiddenDoctors == true ? !showHiddenDoctors : showHiddenDoctors;
 	/*
 	 *  reset the swipe flag
 	 *  once a fresh list is loaded
@@ -205,13 +229,10 @@ function processModel(model) {
 	 */
 	var imageURL = model.get("image_url");
 	var decodedImageURL = '';
-	if(OS_ANDROID)
-	{
-		if(imageURL != null && imageURL != '' && typeof(imageURL) !== 'undefined')
-		{
+	if (OS_ANDROID) {
+		if (imageURL != null && imageURL != '' && typeof (imageURL) !== 'undefined') {
 			decodedImageURL = decodeURIComponent(imageURL);
-			if(decodedImageURL.indexOf('?') != -1)
-			{
+			if (decodedImageURL.indexOf('?') != -1) {
 				imageURL = decodedImageURL.split('?')[0];
 			} else {
 				imageURL = decodedImageURL;
@@ -239,32 +260,91 @@ function didClickSwipeOption(e) {
 	 * we have only one option now, so no need for any further validation
 	 * just confirm and remove doctor
 	 */
-	var data = e.data;
-	if (data.doctor_type != apiCodes.doctor_type_manual) {
-		$.uihelper.showDialog({
-			message : $.strings.doctorsMsgRemoveRestricted
-		});
-	} else {
-		$.uihelper.showDialog({
-			message : String.format($.strings.doctorsMsgRemoveConfirm, data.title),
-			buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
-			cancelIndex : 1,
-			success : function() {
-				$.http.request({
-					method : "doctors_delete",
-					params : {
-						data : [{
-							doctors : {
-								id : data.id
-							}
-						}]
-					},
-					passthrough : data,
-					success : didDeleteDoctor
-				});
-			}
-		});
+
+	switch (e.action) {
+	case 1:
+		doConfirmHide(e);
+		break;
+	case 2:
+		var data = e.data;
+		if (data.doctor_type != apiCodes.doctor_type_manual) {
+			$.uihelper.showDialog({
+				message : $.strings.doctorsMsgRemoveRestricted
+			});
+		} else {
+			$.uihelper.showDialog({
+				message : String.format($.strings.doctorsMsgRemoveConfirm, data.title),
+				buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
+				cancelIndex : 1,
+				success : function() {
+					$.http.request({
+						method : "doctors_delete",
+						params : {
+							data : [{
+								doctors : {
+									id : data.id
+								}
+							}]
+						},
+						passthrough : data,
+						success : didDeleteDoctor
+					});
+				}
+			});
+		}
+		break;
 	}
+}
+
+function doConfirmHide(e) {
+	$.uihelper.showDialog({
+		message : String.format($.strings.prescMsgHideConfirm, e.data.title),
+		buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
+		cancelIndex : 1,
+		success : function() {
+			hideDoctor(e);
+		}
+	});
+}
+
+function hideDoctor(e) {
+	var data = _.pick(e.data, ["id", "doctor_type", "first_name", "last_name", "doctor_dea", "phone", "fax", "addressline1", "addressline2", "zip", "city", "state", "notes"]);
+	data.is_hidden = "1";
+	$.http.request({
+		method : "doctors_update",
+		params : {
+			data : [{
+				doctors : data
+			}]
+		},
+		passthrough : data,
+		success : didSuccessDoctor
+	});
+}
+
+function unhideDoctors() {
+	var d = {};
+	Alloy.Collections.doctors.each(function(model) {
+		if (model.get("is_hidden") == 1) {
+			model.set("is_hidden", 0);
+			d = model;
+		}
+	});
+
+	$.http.request({
+		method : "doctors_update",
+		params : {
+			data : [{
+				doctors : d
+			}]
+		},
+		passthrough : data,
+		success : didSuccessDoctor
+	});
+}
+
+function didSuccessDoctor(result, passthrough) {
+	getDoctors();
 }
 
 function didDeleteDoctor(result, passthrough) {
@@ -315,6 +395,36 @@ function didClickTableView(e) {
 			},
 			stack : true
 		});
+	}
+}
+
+function didClickRightNavBtn(e) {
+	// if (!hideAllPopups()) {
+	$.optionsMenu.show();
+	// }
+}
+
+function didClickOptionMenu(e) {
+	/**
+	 * cancel index may vary,
+	 * based on arguments, so check
+	 * the cancel flag before proceed
+	 */
+	if (e.cancel) {
+		return false;
+	}
+
+	switch(e.index) {
+	/*
+	 * Refresh and unhide both call the same API "doctors get"
+	 */
+	case 0:
+		getDoctors();
+		break;
+	case 1:
+		showHiddenDoctors = true;
+		unhideDoctors();
+		break;
 	}
 }
 
