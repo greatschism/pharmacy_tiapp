@@ -228,8 +228,6 @@ function focus() {
 
 	performDeepLinkAction();
 
-}
-
 	$.utilities.setProperty(Alloy.CFG.show_saved_delivery_info, "0");
 	$.utilities.setProperty(Alloy.CFG.show_updated_card_info, "0");
 
