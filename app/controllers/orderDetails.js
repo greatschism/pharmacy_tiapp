@@ -427,7 +427,9 @@ function updateDisplay() {
 		});
 		$.pickupOptionRow.on("clickdetail", didClickStoreChange);
 
-		getPickupTimegroup();
+		if (Alloy.CFG.show_pickup_timegroup_option == "1") {
+			getPickupTimegroup();
+		}
 
 		break;
 	case apiCodes.pickup_mode_mail_order:
@@ -588,6 +590,7 @@ function setPickupTimegroup() {
 
 		if (codes.length == 1) {
 			selectedCode = codes[0];
+			defaultVal = codes[0].code_value;
 		} else {
 			if (defaultVal === "latestPickupTimegroup") {
 				defaultVal = apiCodes.pickup_time_group_asap;
@@ -623,16 +626,16 @@ function setPickupTimegroup() {
 	 * if only one pickup option then
 	 * don't show option to change
 	 */
-	if (codes.length > 1) {
-		logger.debug("codes		", JSON.stringify(codes, null, 4));
-		$.pickupTimegroupPicker.setItems(codes);
-		$.pickupTimegroupRow = Alloy.createController("itemTemplates/label", {
-			title : selectedCode.code_display,
-			lblClasses : ["h4", "margin-left", "margin-top", "margin-bottom"],
-			hasChild : true
-		});
-		$.pickupTgSection.add($.pickupTimegroupRow.getView());
-	}
+	// if (codes.length > 1) {
+	logger.debug("codes		", JSON.stringify(codes, null, 4));
+	$.pickupTimegroupPicker.setItems(codes);
+	$.pickupTimegroupRow = Alloy.createController("itemTemplates/label", {
+		title : selectedCode.code_display,
+		lblClasses : ["h4", "margin-left", "margin-top", "margin-bottom"],
+		hasChild : true
+	});
+	$.pickupTgSection.add($.pickupTimegroupRow.getView());
+	// }
 	//selected options value
 	/*
 	$.pickupOptionRow = Alloy.createController("itemTemplates/label", {
@@ -797,7 +800,7 @@ function didClickRefill(e) {
 			rx_number : prescription.rx_number,
 			store_id : storeId,
 			pickup_mode : pickupMode,
-			pickup_time_group : Alloy.Models.pickupTimegroup.get("selected_code_value")
+			pickup_time_group : Alloy.CFG.show_pickup_timegroup_option == "1" ? Alloy.Models.pickupTimegroup.get("selected_code_value") : apiCodes.pickup_time_group_asap
 		});
 	});
 	$.http.request({
