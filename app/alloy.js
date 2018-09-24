@@ -1,4 +1,5 @@
-(function() {
+
+	(function() {
 
 	/**
 	 *  common js modules
@@ -9,6 +10,25 @@
 	_.each(["alloy/moment-timezone", "alloy/underscore", "styleSheets", "com.scule", "utilities", "encryptionUtil", "com.scule.tiencrypted", "uihelper", "core", "resources", "config", "localization", "logger", "http", "ctrlShortCode", "requestwrapper", "authenticator", "analyticsHandler", "barcode", "navigationHandler", "feedbackHandler", "notificationHandler", "notificationPanel", "rx", "refillScan", "ti-qrcode-master/qrcode"], function(module) {
 		require(module);
 	});
+		
+	if (OS_ANDROID) {
+		//set the Alloy.Globals.url property if the app was opened via url
+		Ti.API.info(" Ti.Android.currentActivity.intent = "+JSON.stringify(Ti.Android.currentActivity.intent))
+		Alloy.Globals.url = undefined
+		if(typeof Ti.Android.currentActivity.intent !== undefined) {
+			if(typeof Ti.Android.currentActivity.intent.data !== undefined) {
+				//does the intent data contain a custom url for the meijer app?
+				if(JSON.stringify(Ti.Android.currentActivity.intent.data).indexOf("meijerrx://") != -1 && 
+					(JSON.stringify(Ti.Android.currentActivity.intent.data) !== "\"meijerrx://\"") ) {
+				    Alloy.Globals.url = JSON.stringify(Ti.Android.currentActivity.intent.data);
+				    //open and closing quote must be stripped from this passed url directive
+				    if(Alloy.Globals.url.indexOf('"') === 0){
+				    	Alloy.Globals.url = (Alloy.Globals.url.split('"'))[1];
+				    }
+				}
+			}
+		}
+	}
 
 	//CFG
 	/**

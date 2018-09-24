@@ -474,6 +474,7 @@ function didInitWin(e) {
 	if (OS_ANDROID) {
 		$.window.setExitOnClose(false);
 	}
+	
 	$.window.close();
 }
 

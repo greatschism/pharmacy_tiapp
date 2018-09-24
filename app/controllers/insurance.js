@@ -8,7 +8,44 @@ function init() {
 	if (Alloy.Globals.isLoggedIn) {
 		getAllPharmacy();
 	}
+
+	if (OS_IOS) {
+		//required if the user returns to the app and was already on the page
+		//TODO: make sure that the actions are not performed if the user needs to be logged out first
+		Ti.App.addEventListener("resumed", performDeepLinkAction);
+	}
 }
+
+function performDeepLinkAction() {
+	//Ti.API.info("performDeepLinkAction() "+ Alloy.Globals.url)
+	if( typeof Alloy.Globals.url === 'string' ) {
+		var navPage = (Alloy.Globals.url.split('page='))[1];
+			navPage =navPage.split('&');
+
+		if(navPage[0] === "insurance") {
+			var urlInfo = (navPage[1].split('info='))[1];
+			var urlData = (navPage[2].split('data='))[1];
+
+			//for POC purposes we are simply alerting url GET param values
+			//to extend functionality, these values would be used to elicit specific action/behavior in the app
+			alert("info = "+urlInfo+"  data = "+urlData);
+		}
+
+		//reset Alloy.Globals.url - otherwise the app may think that it hasn't yet acted on the deep link
+		Alloy.Globals.url = undefined;
+    }
+}
+
+
+function focus() {
+
+
+	//if(OS_IOS) {
+		performDeepLinkAction();
+	//}
+
+}
+
 
 function didClickPhoto(e) {	
 	$.app.navigator.showLoader();
@@ -129,4 +166,13 @@ function didGetStore(result, passthrough) {
 	//logger.debug("\n\n\n in didgetstore store obj", JSON.stringify(store, null, 4), "\n\n\n");
 }
 
-exports.init = init; 
+function terminate() {
+
+	if (OS_IOS) {
+		Ti.App.removeEventListener("resumed", performDeepLinkAction);
+	}
+}
+
+exports.init = init;
+exports.focus = focus;
+exports.terminate = terminate;

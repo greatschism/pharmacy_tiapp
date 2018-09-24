@@ -104,10 +104,38 @@ function init() {
 		$.bottomView.hide();
 	}
 	
-
+	if (OS_IOS) {
+		//required if the user returns to the app and was already on the page
+		//TODO: make sure that the actions are not performed if the user needs to be logged out first
+		Ti.App.addEventListener("resumed", performDeepLinkAction);
+	}
 }
 
+function performDeepLinkAction() {
+	Ti.API.info("performDeepLinkAction() "+ Alloy.Globals.url)
+	if( typeof Alloy.Globals.url === 'string' ) {
+		var navPage = (Alloy.Globals.url.split('page='))[1];
+			navPage =navPage.split('&');
+
+		if(navPage[0] === "prescriptions") {
+			var urlInfo = (navPage[1].split('info='))[1];
+			var urlData = (navPage[2].split('data='))[1];
+
+			//for POC purposes we are simply alerting url GET param values
+			//to extend functionality, these values would be used to elicit specific action/behavior in the app
+			alert("info = "+urlInfo+"  data = "+urlData);
+		}
+
+		//reset Alloy.Globals.url - otherwise the app may think that it hasn't yet acted on the deep link
+		Alloy.Globals.url = undefined;
+    }
+}
+
+
 function focus() {
+
+	Ti.API.info("prescriptions focus")
+
 	/*
 	 * avoid null pointer if another controller or another instance of this controller
 	 * used this global variable in it's life span
@@ -170,6 +198,9 @@ function focus() {
 	if (Alloy.CFG.is_update_promise_time_enabled) {
 		getPromiseTimeOptions();
 	}
+
+	performDeepLinkAction();
+
 }
 
 
@@ -1492,7 +1523,7 @@ function processSections(prescription, daysLeft) {
 					});
 			}
 			else{
-			if (prescription.get("anticipated_refill_date")) {
+			if (prescription.get("anticipated_refill_date") && args.navigationFrom !== "specialtyGrouping") {
 				/**
 				 * if  anticipated_refill_date is <= upcomingRefillDaysBeforeARD - move to ready for refill
 				 * */
@@ -2425,6 +2456,7 @@ function didPostlayout(e) {
 	if (Ti.App.accessibilityEnabled) {
 		$.tooltip && $.tooltip.hide();
 	};
+
 }
 
 function onBottomViewLoaded() {
@@ -2462,6 +2494,10 @@ function terminate() {
 	 */
 	Alloy.Globals.currentRow = null;
 	Alloy.Globals.isSwipeInProgress = false;
+
+	if (OS_IOS) {
+		Ti.App.removeEventListener("resumed", performDeepLinkAction);
+	}
 }
 
 exports.init = init;

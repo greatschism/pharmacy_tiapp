@@ -100,12 +100,15 @@ function Navigation(args) {
 
 		that.isBusy = true;
 
-		/**
-		 * on android keyboard will not be hidden
-		 * if it is opened, hide it
-		 */
-		if (Ti.App.keyboardVisible || keyboardModule.getKeyboardVisible()) {
-			keyboardModule.hideKeyboard();
+
+		if (! Alloy.Globals.url) {
+			/**
+			 * on android keyboard will not be hidden
+			 * if it is opened, hide it
+			 */
+			if (Ti.App.keyboardVisible || keyboardModule.getKeyboardVisible()) {
+				keyboardModule.hideKeyboard();
+			}
 		}
 
 		that.currentController = Alloy.createController("drawer/view", params);
