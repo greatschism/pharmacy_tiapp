@@ -8,53 +8,35 @@ var args = $.args,
     authenticator = require("authenticator"),
     logger = require("logger"),
     keyboardModule = require("com.mscripts.hidekeyboard"),
+
     openedViaUrl = false,
     needsUrlRedirect = false,
+
     reload = false;
 
 
 
 function confirmUrlRedirect(url, resumed) {
 
-	logger.debug(" !!! confirmUrlRedirect !!! ");
-	var navPage = (url.split('page='))[1];
-		navPage = navPage.split('&')[0];
-	Alloy.Globals.url = url;
-	if(navPage === "prescriptions") {
-		if (resumed === true) {
-			navigationHandler.navigate({
-				titleid : "titlePrescriptions",
-				ctrl : "prescriptions",
-				requires_login : true
-			}); 
-		} else {
-			needsUrlRedirect = true;
-			return true;
-		}
-	} else if (navPage === "doctors") {
-		if (resumed === true) {
-			navigationHandler.navigate({
-				titleid : "titleDoctors",
-				ctrl : "doctors",
-				requires_login : true
-			}); 
-		} else {
-			needsUrlRedirect = true;
-			return true;
-		}
-	} else if (navPage === "insurance") {
-		if (resumed === true) {
-			navigationHandler.navigate({
-				titleid : "titleInsurance",
-				ctrl : "insurance"
-			});
-		} else {
-			needsUrlRedirect = true;
-			return true;
-		}
-	} else {
+	Ti.API.info(" !!! confirmUrlRedirect !!! ");
+	var autofillToken = (url.split('token='))[1];
+	if (typeof autofillToken === 'undefined') {
+		Ti.API.info("atufoill token undefined after parsing");
+		//if an autofill token parameter was not received, then bail on the deeplink process
 		Alloy.Globals.url = undefined;
 		return false;
+	}
+	
+	//autofillToken = autofillToken.split('&')[0];
+	//autofillToken = autofillToken.split('/')[0];
+
+	Alloy.Globals.url = url;	//globals url value is trimmed at this point
+
+	if (resumed === true) {
+		urlRedirectTo("titlePrescriptions", "prescriptions")
+	} else {
+		needsUrlRedirect = true;
+		return true;
 	}
 }
 
@@ -67,28 +49,52 @@ function init() {
 		 * from background after appload_timeout time,
 		 * then reload it
 		 */
+
+
 		Ti.App.addEventListener("paused", didAppPaused);
 		Ti.App.addEventListener("resumed", didAppResumed);
 
-		$.rootWindow.addEventListener('open', function (e) {
-		    
-	        // Handle the URL in case it opened the app
-		    	//logger.debug( JSON.stringify( Ti.App.getArguments().url) )
+		if( Alloy.CFG.enable_autofill_deep_link === "enableAutofillDeepLink" ) {
+			$.rootWindow.addEventListener('open', function (e) {
+		    	Ti.API.info( "deep link opened" );
+
+		    	Ti.API.info(" Ti.App.getArguments().url" + JSON.stringify( Ti.App.getArguments().url) )
+			    
+
+		    	Ti.API.info(" Alloy.Globals.url" + JSON.stringify( Alloy.Globals.url) )
+					
+				//Ti.App.getArguments().url used for URL scheme recovery as opposed to associated domains
+				//This left in for potential future use
 		     	if( typeof Ti.App.getArguments().url === 'string' ) {
 		     		confirmUrlRedirect(Ti.App.getArguments().url, false);
 		         }
 
+		     	if( typeof Alloy.Globals.url === 'string' ) {
+		     		confirmUrlRedirect(Alloy.Globals.url, false);
+		         }
+
 		        // Handle the URL in case it resumed the app
 		        Ti.App.addEventListener('resumed', function () {
-			    	//logger.debug("resumed")
+			    	Ti.API.info("resumed")
 
-			        // Handle the URL in case it opened the app
+					if( typeof Alloy.Globals.url === 'string'  ) {
+						Ti.API.info( "redirect is gettin confirmed" )
+						confirmUrlRedirect(Alloy.Globals.url, true);
+						openedViaUrl = true;
+					}
+
+					//Ti.App.getArguments().url used for URL scheme recovery as opposed to associated domains
+					//This left in for potential future use
+		    		Ti.API.info( JSON.stringify( Ti.App.getArguments().url) )
 			     	if( typeof Ti.App.getArguments().url === 'string' ) {
 		     			confirmUrlRedirect(Ti.App.getArguments().url, true);
 		     		}
 		        });
-		});
-
+			});	
+		} else {
+	    	//if autofill feature isn't enabled, reset the url global
+	    	Alloy.Globals.url = undefined;
+	    }
 
 		//drawer window events
 		$.drawer.on("open", didOpen);
@@ -97,7 +103,6 @@ function init() {
 		$.drawer.on("windowDidClose", windowDidClose);
 				
 		globalLeftNavHandler = didClickLeftNavView;
-
 
 	}
 	if (OS_ANDROID) {
@@ -108,11 +113,15 @@ function init() {
 		//to hide keyboard when drawer slides
 		$.drawer.on("draweropen", hideKeyboard);
 
-        if( typeof Alloy.Globals.url === 'string' ) {
+	    
+
+	    if( typeof Alloy.Globals.url === 'string'  && Alloy.CFG.enable_autofill_deep_link === "enableAutofillDeepLink" ) {
 			confirmUrlRedirect(Alloy.Globals.url, false);
 			openedViaUrl = true;
+	    } else {
+	    	//if autofill feature isn't enabled, reset the url global
+	    	Alloy.Globals.url = undefined;
 	    }
-	    
 	}
 	$.drawer.open();
 }
@@ -161,84 +170,19 @@ function didOpen(e) {
 		failure : didAuthenticate,
 		force_start : true
 	});
-
-	if(OS_IOS) {
-				// ctrlArguments : {
-				//  	navigationFrom : "url"
-				// },
-		if (needsUrlRedirect) {
-			needsUrlRedirect = false;
-			if(typeof Alloy.Globals.url === 'string') {
-				logger.debug("needsUrlRedirect Alloy.Globals.url == "+ Alloy.Globals.url );
-				var navPage = (Alloy.Globals.url.split('page='))[1];
-					navPage = navPage.split('&')[0];
-				if(navPage === "prescriptions") {
-					navigationHandler.navigate({
-						titleid : "titlePrescriptions",
-						ctrl : "prescriptions",
-						requires_login : true
-					}); 
-				} else if (navPage === "doctors") {
-					navigationHandler.navigate({
-						titleid : "titleDoctors",
-						ctrl : "doctors",
-						requires_login : true
-					}); 
-				} else if (navPage === "insurance") {
-					app.navigator.open({
-						titleid : "titleInsurance",
-						ctrl : "insurance"
-					});
-				}
-			}
-		}
-	}
-	if(OS_ANDROID) {
-		if (openedViaUrl) {
-			openedViaUrl = false;
-			if(typeof Alloy.Globals.url === 'string') {
-				logger.debug("openedViaUrl Alloy.Globals.url == "+ Alloy.Globals.url );
-				var navPage = (Alloy.Globals.url.split('page='))[1];
-					navPage = navPage.split('&')[0];
-			 	if (navPage === "insurance") {
-					app.navigator.open({
-						titleid : "titleInsurance",
-						ctrl : "insurance"
-					});
-				}
-			}
-		}
-
-	}
-
-
 }
 
 function didAuthenticate(passthrough, navigationHandled) {	
 	//initialize menu controller
 	$.menuCtrl.init();
-	var navPage = "";
-	/**
-	 * 	Check for url redirect 
-	 */
-	if (Alloy.Globals.url && typeof Alloy.Globals.url === 'string') {
-		navPage = (Alloy.Globals.url.split('page='))[1];
-		navPage = navPage.split('&')[0];
-	}
+
+
 	if (needsUrlRedirect) {
-		if (navPage === "prescriptions") {
-			urlRedirectTo("titlePrescriptions", "prescriptions");
-		} else if (navPage === "settings") {
-			urlRedirectTo("titleAccount", "account");
-		} else if (navPage === "doctors") {
-			urlRedirectTo("titleDoctors", "doctors");
-		}
-		Alloy.Globals.url = null;
 		needsUrlRedirect = false;
+		urlRedirectTo("titlePrescriptions", "prescriptions")
 	} else if (Alloy.Globals.isAccountUpgraded) {
 		whenAccountUpgraded();
-	}
-	else  if (!navigationHandled && !needsUrlRedirect) {
+	} else  if (!navigationHandled && !needsUrlRedirect) {
 		/**
 		 * navigationHandled - whether or not to
 		 * initiate a navigation.
@@ -303,21 +247,14 @@ function didAuthenticate(passthrough, navigationHandled) {
 }
 
 function urlRedirectTo(titleId, controller) {
-	if (OS_IOS) {
-		app.navigator.open({
+		navigationHandler.navigate({
 			titleid : titleId,
 			ctrl : controller,
+			requires_login : true,
 			ctrlArguments : {
 				navigationFrom : "url"
 			}
 		});
-	} else {
-		navigationHandler.navigate({
-			titleid : titleId,
-			ctrl : controller,
-			requires_login : true
-		});
-	};
 }
 
 function whenAccountUpgraded() {
@@ -331,6 +268,7 @@ function whenAccountUpgraded() {
 			stack : false
 		});
 	} else if (!needsUrlRedirect) {
+		//TODO: ^^ evaluate this flow in regards to the deep links
 		/**
 		 * remove the entry from the properties so that HIPAA is not displayed to the user next time
 		 */

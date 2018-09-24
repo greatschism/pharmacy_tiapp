@@ -11,6 +11,7 @@
 		require(module);
 	});
 		
+	//Android picks up the intent payload passed via URL in alloy.js immediately after launch
 	if (OS_ANDROID) {
 		//set the Alloy.Globals.url property if the app was opened via url
 		Ti.API.info(" Ti.Android.currentActivity.intent = "+JSON.stringify(Ti.Android.currentActivity.intent))
@@ -29,7 +30,21 @@
 			}
 		}
 	}
-
+	if (OS_IOS) {
+		//url passed via associated domain captured here and assigned to Alloy.Globals.url
+	    Ti.App.iOS.addEventListener('continueactivity', function(e){
+	    	Ti.API.info("continueactivity")
+			if(e.activityType === "NSUserActivityTypeBrowsingWeb"){
+	    		Ti.API.info( JSON.stringify( e.webpageURL) )
+		        // Handle the URL in case it opened the app
+		     	if( typeof e.webpageURL === 'string' ) {
+	    			Ti.API.info("e.webpageURL is STRING!!")
+	     			Alloy.Globals.url = e.webpageURL;
+	     		}
+	     	}
+	    });
+	}
+	
 	//CFG
 	/**
 	 * use different key based on the platform
