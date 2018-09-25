@@ -6,8 +6,8 @@
 				<Button class="top-disabled left-disabled right-disabled i5 primary-menu-font-color bg-color-disabled border-disabled icon-back" if="Alloy.CFG.use_additional_header_styling"  />
 			</View>
 		</LeftNavButton>
-		<TitleControl>
-			<Label id="titleControl" class="width-100 hight-100 title-control txt-center" />	
+		<TitleControl class="width-100 hight-100">
+			<Label id="titleControl" class="title-control txt-center"/>	
 		</TitleControl>
 	</Window>
 </Alloy>

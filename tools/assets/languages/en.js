@@ -65,8 +65,8 @@ module.exports = {
 		"msgLoading" : "Processing. Please wait.",
 		"msgNoInternet" : "You need an internet connection to use this app. Please try again once you are connected.",
 		"msgNetworkTimeout" : "It's taking longer than expected, please check your network connection and try again.",
-		"msgServicesDown" : "Services are currently down. please try again later.",
-		"msgUnknownError" : "Something went wrong! please try again later.",
+		"msgServicesDown" : "Services are currently down. Please try again later.",
+		"msgUnknownError" : "Something went wrong! Please try again later.",
 		"msgAppUpdateFound" : "There is an update, do you want to download now?",
 		"msgAppUpdateFailed" : "We are unable to download the updates at the moment. Please try again later.",
 		"msgAppUpdatedReload" : "The updates has been downloaded, requires restart inorder to apply the updates. Do you want to restart now?",
@@ -101,12 +101,20 @@ module.exports = {
 		"msgPasswordTips" : "Your password must be between 6 and 15 characters and contain at least 1 letter and 1 number.",
 		"msgRxNumberTips" : "Your Rx number can be found on your prescription bottle. You can use any prescription.",
 		"msgAutoLogin" : "Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
-		"msgTouchIdWithAuto" : "Turning this feature on requires your fingerprint or device passcode to sign in.",
-		"msgTouchIdWithoutAuto" : "Turning this feature on allows you to sign in with your fingerprint.",
-		"msgTouchIdOff": "You have just disabled touch ID for signing in. You will now have to enter your password to log in.",
-		"msgPromptTouchID": "Would you like to use touch ID to log in instead of entering your password?",
-		"msgEnabledTouchID": "Great! You can now use touch ID to log in. If you need to change your password, or login manually, just tap 'sign-in'. You can disable this feature in the 'account' page.",
-		"msgDeferredTouchID": "No problem, you can always enable this feature in the 'account' page when you are logged in.",		
+		"msgTouchIDReset":"You have entered login credentials which do not match those at the time you enabled Touch ID.  Due to this, you will need to re-enable Touch ID in order to continue using it.",
+        "msgTouchIDDisclaimer": "All users with a registered fingerprint on this device will be able to log in. Please use caution when allowing others access.",
+        "msgTouchIdWithAuto": "Turning this feature on requires your fingerprint or device passcode to sign in.",
+        "msgTouchIdWithoutAuto": "Turning this feature on allows you to sign in with your fingerprint.",
+        "msgTouchIdOff": "You have just disabled touch ID for signing in. You will now have to enter your password to log in.",
+        "msgTouchIDwKeep": "We see that you also have Touch ID turned on. Please note that Touch ID will not hide your user credentials from the sign-in screen when 'keep me signed in' is enabled'.",
+        "msgPromptTouchID": "Would you like to use touch ID to log in instead of entering your password?",
+        "msgEnabledTouchID": "Great! You can now use touch ID to log in. If you need to change your password, or login manually, just tap 'sign-in'. You can disable this feature in the 'account' page.",
+        "msgEnabledTouchIDwKeep": "We see that you also have 'keep me signed in' turned on. Please note that enabling Touch ID will not hide your user credentials from the sign in screen - would you like to turn ‘keep me signed-in’ off (you’ll still be able to log in with Touch ID)?",
+        "msgTouchIDwKeepTurnedOff": "Ok, 'keep me signed-in' has been turned off and your credentials won't show in the 'sign-in' page now. You can always turn this on in the 'account' page.",
+        "msgDeferredTouchID": "No problem, you can always enable this feature in the 'account' page when you are logged in.",	
+		"msgTouchIDNote":"Note: All users with a registered fingerprint on this device will be able to log in.\nPlease use caution when allowing others access.",
+		"msgTouchIDLearnMore":"learn more about how TouchID interacts with 'keep me signed in' - tap here",
+		"msgTouchIDLearnMoreInfo":"Login via touch-ID functions independently of the 'keep me signed in' feature.  If 'keep me signed in' is turned on when you enable touchID you'll still always be prompted to authenticate with your fingerprint when you log in or come back to the app after a period of inactivity, and the login screen will always still retain your username and password.",
 		"msgAgeRestriction" : "You must be 18 or older to create your own account. If you are an emancipated minor or have further questions, please contact us at %s for assistance.",
 		"msgAccountExists" : "It looks like you already have an account with %s",
 		"msgUserRecoverySuccess" : "We've just sent you an email with a password reset link. You can use it to create a new password.",
@@ -114,6 +122,7 @@ module.exports = {
 		"msgMgrAdultAccountCreation" : "Your manager account is created! Now please add your adult family member.",
 		"msgRegisterSuccessful" : "Registration is complete. You can now sign into the app. Enjoy!",
 		"msgAccountHIPAARevoked" : "Your HIPAA Authorization has been revoked. You will no longer receive tailored offers or educational information.",
+		"msgAddCardError" : "There was an error adding the card. Please try again.",
 
 		"accessibilityLblSwitchOn" : "On",
 		"accessibilityLblSwitchOff" : "Off",
@@ -230,6 +239,7 @@ module.exports = {
 		"titleManageAdult" : "Manage an adult",
 		"titleAddAnAdult" : "Add an adult",
 		"titleInsuranceCard" : "Update insurance card",
+		"titleInsurance" : "Update Insurance",
 		"titleRegister" : "Account creation",
 		"titleTransferSuccess" : "Order processed",
 		"titleRefillOrdered" : "Order processed",
@@ -245,6 +255,14 @@ module.exports = {
 		"titleEmailVerify" : "Email Confirmation",
 		"titlePhoneVerify" : "Phone Confirmation",
 		"titleContactUs" : "Contact Us",
+
+		"titleDeliveryOptions" : "Delivery Options",
+		"titlePaymentMethod" : "Payment Method",
+		"paymentDetBtnSubmit" : "Submit",
+
+		"titleOrderHistory" : "Delivery Order History",
+		"orderHistoryMsgEmptyList" : "No delivery order history found.",
+		"orderHistoryPatientSwitcher" : "%s's orders",
 
 		"carouselLblApp" : "Manage your prescriptions\nanytime, anywhere.",
 		"carouselLblPrescriptions" : "See a complete list of your\nprescriptions",
@@ -303,6 +321,8 @@ module.exports = {
 		"loginTouchTitle" : "Biometric Authentication",
 		"loginTouchFailure" : "Touch ID authentication failed.",
 		"loginUseTouch" : "Please use touch ID to log in.",
+		"biometricYes" : "Yes",
+		"biometricNo" : "No",
 
 		"patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
 		"patientSwitcherMsgChildBecameAdult" : "This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
@@ -314,6 +334,8 @@ module.exports = {
 		"userRecoveryBtnSend" : "Send",
 		"userRecoveryBtnHelp" : "Help",
 		"userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor>I forgot my username</secondaryfont></secondarycolor>",
+
+		"patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
 
 		"storesPatientSwitcher" : "%s's stores",
 		"storesPatientSwitcherSubtitleMinor" : "Same settings as account manager.",
@@ -341,6 +363,7 @@ module.exports = {
 		"storeDetBtnFavouriteAddAccessibility" : "Add Store to Favorites Button",
 		"storeDetBtnFavouriteRemoveAccessibility" : "Remove Store from Favorites Button",
 
+		"orderHomeDeliveryLbl" : "Save time with home delivery!",
 
 		"titleReadyPrescriptions" : "Ready Prescriptions",
 		"titleMedSyncPrescriptions" : "MedSync Prescriptions",
@@ -363,7 +386,7 @@ module.exports = {
 		"checkoutMsgEmptyList" : "Due to the recent upgrade, Mobile Checkout is not available for this prescription on this refill only. Future refills of this prescription will not be affected.",
 		"checkoutMsgCreditCardExpiry" : "Your credit card is expiring soon. Please update at the pharmacy to use Mobile Checkout.",
 		"cardExpiryTooltipBtnHide" : "Got it!",
-		
+
 		"checkoutMedicationPrefQuestion" : "I confirm my request for the brand name version of the following medication(s):",
 		"checkoutCounselingQuestion" : "Would you like to speak to the pharmacist about your medications?",
 		"checkoutYes" : "Yes",
@@ -371,6 +394,7 @@ module.exports = {
 		"checkoutPaymentInformation" : "Your Payment Information",
 		"checkoutCCEndingIn" : "ending in",
 		"checkoutCCExpDate" : "Expiration date:",
+		"checkoutSuccessLblSuccess" : "Checkout complete!",
 
 		"loyaltyAddTipLblTitle" : "Please enter your mPerks information at the cash register the next time you are at the pharmacy. We will save your information for future use in Mobile Checkout.",
 		"loyaltySignupTipLblTitle" : "Would you like to sign up for our mPerks program?",
@@ -388,10 +412,13 @@ module.exports = {
 		"expressQRLblTitle" : "This code is active for 24 hours and identifies you at the register in-store to save you time.\n\nAfter 24 hours has elapsed, please re-enter your date of birth to activate again.",
 		"expressQRDoneBtn" : "Done",
 		"expressQRCounterExpired" : "Your Express Pick-up code has expired. Please re-enter your Date of Birth to enable again.",
-		
+
 		"doctorsPatientSwitcher" : "%s's doctors",
 		"doctorsSectionDoctors" : "Doctors",
 		"doctorsSwipeOptRemove" : "Remove",
+		"doctorsSwipeOptHide" : "Hide",
+		"doctorsOptMenuUnhide" : "Unhide doctors",
+		"doctorsOptMenuRefresh" : "Refresh",
 		"doctorsMsgRemoveRestricted" : "Sorry, you cannot remove doctors who have prescribed you active prescriptions.",
 		"doctorsMsgRemoveConfirm" : "Are you sure you want to remove %s?",
 		"doctorsLblManual" : "Manually added by you.",
@@ -452,6 +479,7 @@ module.exports = {
 		"prescOutOfStockLbl" : "Out of stock. We'll notify you when it's ready.",
 		"prescPartialFillLbl" : "This prescription is partially filled. We'll let you know when the remainder is available.",
 		"prescReadyPickupLblReady" : "Ready for pick up",
+		"prescReadyPickupLblDeliver" : "Eligible for delivery",
 		"prescReadyPickupAttrRestock" : "You have <secondaryfont><secondarycolor>%d %s</secondarycolor></secondaryfont> left to pick this up!",
 		"prescReadyPickupAttrRestockToday" : "You have to pick up this prescription <secondaryfont><secondarycolor>today</secondarycolor></secondaryfont>!",
 		"prescReadyRefillBtnHide" : "Hide",
@@ -479,7 +507,9 @@ module.exports = {
 		"prescPartialLblTitle" : "Want to add a prescription?",
 		"prescPartialLblDesc" : "It looks like you don't have any prescriptions associated with your account.",
 		"prescPrefCarryOverTitle" : "We noticed that you have a new prescription which closely matches a recent prescription with dosage reminders. Would you like to move dosage reminder settings from <secondarycolor>%s</secondarycolor> to <secondarycolor>%s</secondarycolor>?",
-		
+		"prescCartMsgSelectMore" : "Please add at least 1 prescription to cart to continue.",
+		"prescCartMultipleStoreError" : "You may not add prescriptions from different stores to the cart. Please remove one of your prescriptions and try again.",
+
 		"prescDetPromptCopay" : "Payment amount due:",
 		"prescDetPromptAutofill" : "This prescription is enrolled in autofill.",
 		"prescDetPromptQuantity" : "Quantity:",
@@ -903,11 +933,11 @@ module.exports = {
 		"textSignupBtnSendMeTexts" : "Send me texts",
 		"textSignupBtnSkipSendMeTexts" : "Not at this time",
 		"textSignUpBenefitLbl" : "Sign up to receive text benefits",
-        "textSignupBenefit1": "Reminders when it's time to refill.",
-        "textSignupBenefit2": "Instantly order new refills!",
-        "textSignupBenefit3": "Pick up notifications when your prescriptions are ready.",
-        "textSignupBenefit4": "Receive other health care messages.",
-        "textSignupBenefit5": "Know the status of your prescription throughout the filling process.",
+		"textSignupBenefit1" : "Reminders when it's time to refill.",
+		"textSignupBenefit2" : "Instantly order new refills!",
+		"textSignupBenefit3" : "Pick up notifications when your prescriptions are ready.",
+		"textSignupBenefit4" : "Receive other health care messages.",
+		"textSignupBenefit5" : "Know the status of your prescription throughout the filling process.",
 
 		"receiveTextChildSectionLbl" : "Who would you like to receive texts for?",
 		"receiveTextChildSectionPhoneNum" : "Mobile number",
@@ -1070,8 +1100,21 @@ module.exports = {
 		"prescDetAccessibilityReminderMed" : "Set a time to take this medication",
 		"accessibilityColorPicker" : "Color picker. This is optional.",
 		"accessibilityAddFamilyIconButton" : "Add family.",
+		
+		"expPickupBenefitsSignupBtn" : "Sign me up",
+		"expPickupBenefitsSkipSignupBtn" : "Sign up later",
+		"expPickupBenefitsDescription" : "Minimize your time at the pharmacy by answering your transaction questions and selecting payment method ahead of time. A unique confirmation code is provided for scanning at the register for self-identification and enhanced privacy.",
+		"expPickupBenefitsFeatureTitle" : "Please store your credit card on file with your pharmacy to enable use of this feature",
+		"expPickupBenefitsListTitle" : "Express Pick-up provides the following benefits:",
+		"expPickupBenefitsList1" : "Save time by completing your transaction ahead of time!",
+		"expPickupBenefitsList2" : "Select your prescriptions and payment from the privacy of your home.",
+		"expPickupBenefitsList3" : "Have a question for your pharmacist? You now have the ability to request in-store counseling from your mobile phone.",
+		"expPickupBenefitsList4" : "Household sharing one card? No problem. With Express Pick-up, the physical card does not need to be present at the time of pick up.",
+		"expPickupBenefitsList5" : "At %s, we take your privacy seriously. At the close of your transaction, you will be provided with a scan code which can be used to identify you without having to provide a name and date of birth to the store employee.",
+		"expPickupBenefitsTitle" : "What is it?",
 		"expPickupBenefitsCloseBtn" : "Close",
 		"expPickupBenefitsDoneBtn" :"Done",
+		
 		"vSixCarouselTitle" : "What's new!",
         "autoFillAttr": "Automatically refill this medication",
         "autoFillDateLbl": "Next Refill Date is Scheduled on - ",
@@ -1079,6 +1122,7 @@ module.exports = {
         "autoFillDate": "June 17, 2018",
         "autoFillChangeDate": "M",
 		"prescDetSectionAutofill" : "Autofill",
-		"prescDetSectionNoReminders" : "Reminders cannot be adjusted and are sent via Autofill Program"
+		"prescDetSectionNoReminders" : "Reminders cannot be adjusted and are sent via Autofill Program",
+		"prescriptionsInProcessNewTime": "Click here to select new time"
 	}
 };
