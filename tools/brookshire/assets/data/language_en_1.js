@@ -7,7 +7,7 @@ module.exports = {
 		"titleRefill" : "Refill by scan",
 		"titleReminders" : "Reminders",
 		"titleStores" : "Find a store",
-		"loginLblTitle" : "Sign in to the Fairview mobile pharmacy",
+		"loginLblTitle" : "Sign in to the Brookshire Brothers mobile pharmacy",
 		"familyMemberAddLbl" : "Great, let's add your family members!",
 		"titleTwitter" : "Twitter",
 		"titleFacebook" : "Facebook",
