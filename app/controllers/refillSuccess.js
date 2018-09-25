@@ -244,3 +244,4 @@ function handleEvent(e) {
 
 exports.init = init;
 exports.focus = focus;
+exports.backButtonHandler = didClickDone;

@@ -101,7 +101,7 @@ function init() {
 	if (Alloy.CFG.is_delivery_option_enabled != 1) {
 		if (isAutoFillEligible()) {
 			setAccessibilityLabelOnSwitch($.autoFillSwt, $.strings.autoFillAttr);
-		} else if ((!Alloy.CFG.is_mscripts_autofill_enabled || prescription.is_autofill_eligible == "0")) {
+		} else if ((!Alloy.CFG.is_mscripts_autofill_enabled && prescription.is_autofill_eligible == "0")) {
 			$.autoFillSection.height = 0;
 			$.autoFillView.height = 0;
 			$.autoFillSeperator.height = 0;
@@ -111,6 +111,7 @@ function init() {
 			$.autoFillChangeDateSeperator.height = 0;
 		}
 	}
+	
 }
 
 function setAccessibilityLabelOnSwitch(switchObj, strValue) {
@@ -295,7 +296,7 @@ function loadPresecription() {
 		$.quantityView.height = 0;
 	}
 
-	if (prescription.is_autofill_eligible !== "1" && Alloy.CFG.is_delivery_option_enabled != 1) {
+	if (Alloy.CFG.is_mscripts_autofill_enabled && prescription.is_autofill_eligible !== "1") {
 		$.autoFillDateView.height = 0;
 		$.autoFillDateSeperator.height = 0;
 		$.autoFillChangeDateView.height = 0;
@@ -374,6 +375,12 @@ function didPostlayoutPrompt(e) {
 			if (prescription.isAutofillPickupDateEditable !== "1") {
 				$.autoFillChangeDateView.applyProperties($.createStyle({
 					classes : ["auto-height", "inactive-lighter-bg-color"]
+				}));
+				$.autoFillChangeDateLbl.applyProperties($.createStyle({
+					classes : ["disabled-text-color"]
+				}));
+				$.autoFillChangeDate.applyProperties($.createStyle({
+					classes : ["disabled-text-color"]
 				}));
 				$.autoFillChangeDateView.removeEventListener('click', getPrefillOrderDetails);
 			} else {
@@ -961,6 +968,12 @@ function didSuccessAutoFill(result, passthrough) {
 		if (result.data.updateAutofill[0].isAutofillPickupDateEditable !== "1") {
 			$.autoFillChangeDateView.applyProperties($.createStyle({
 				classes : ["auto-height", "inactive-lighter-bg-color"]
+			}));
+			$.autoFillChangeDateLbl.applyProperties($.createStyle({
+				classes : ["disabled-text-color"]
+			}));
+			$.autoFillChangeDate.applyProperties($.createStyle({
+				classes : ["disabled-text-color"]
 			}));
 			$.autoFillChangeDateView.removeEventListener('click', getPrefillOrderDetails);
 		} else {
