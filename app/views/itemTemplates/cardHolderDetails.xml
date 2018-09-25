@@ -1,0 +1,25 @@
+<Alloy autoStyle="true">
+	<TableViewRow id="row">
+		<View id="contentView" class="vgroup margin-top margin-bottom margin-left margin-right auto-height">
+			<View class="top input-height" if="$.args.name">
+				<Widget id="nameTxt" analyticsId="NameTxt" src="ti.textfield" class="top left txt name h6 returnkey-done" />
+			</View>
+			<View class="margin-top input-height ">
+				<Widget id="addressTxt" analyticsId="AddressTxt" src="ti.textfield" class="top left txt address h6 returnkey-done" />
+			</View>
+			<View class="margin-top input-height ">
+				<Widget id="cityTxt" analyticsId="CityTxt" src="ti.textfield" class="top left txt h6 returnkey-done" />
+			</View>
+			<View class="margin-top input-height hgroup ">
+				<Widget id="stateTxt" analyticsId="StateTxt" src="ti.textfield" class="top left txt width-50 h6 returnkey-done" />
+				<Widget id="zipTxt" analyticsId="ZipTxt" src="ti.textfield" class="top right txt width-40 zip h6 returnkey-done" onChange="didChangeZip" />
+			</View>
+			<View class="margin-top input-height " if="$.args.phone">
+				<Widget id="phoneTxt" analyticsId="PhoneTxt" src="ti.textfield" class="top left txt h6 returnkey-done" onChange="didChangePhone" />
+			</View>
+			<View class="margin-top" if="$.args.instructions">
+				<Widget id="descTxt" analyticsId="DescTxt" src="ti.textfield" class="top left txta h6 returnkey-done" />
+			</View>
+		</View>
+	</TableViewRow>
+</Alloy>

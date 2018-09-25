@@ -14,10 +14,10 @@ var args = $.args,
     prefillRx,
     changeTargetDateParams,
     noReminderLabel = $.UI.create("Label", {
-		apiName : "Label",
-		classes : ["margin-left", "margin-top-xxxl", "margin-right", "h12", "negative-fg-color"],
-		text : Alloy.Globals.strings.prescDetSectionNoReminders
-	});
+	apiName : "Label",
+	classes : ["margin-left", "margin-top-xxxl", "margin-right", "h12", "negative-fg-color"],
+	text : Alloy.Globals.strings.prescDetSectionNoReminders
+});
 
 function init() {
 	Alloy.CFG.remind_before_in_days_max = parseInt(Alloy.Models.appload.get("startReminderPeriod")) > Alloy.CFG.remind_before_in_days_max ? parseInt(Alloy.Models.appload.get("startReminderPeriod")) : Alloy.CFG.remind_before_in_days_max;
@@ -97,17 +97,21 @@ function init() {
 	$.instructionLbl.accessibilityLabel = $.instructionLbl.text;
 	$.instructionLbl.accessibilityValue = $.strings.prescDetLblInstructionAccessibilityCollapsed;
 	$.instructionLbl.accessibilityHint = $.strings.prescDetLblInstructionExpandAccessibility;
-	if(isAutoFillEligible()) {
-		setAccessibilityLabelOnSwitch($.autoFillSwt, $.strings.autoFillAttr);
-	} else if(!Alloy.CFG.is_mscripts_autofill_enabled || prescription.is_autofill_eligible == "0") {
-		$.autoFillSection.height = 0;
-		$.autoFillView.height = 0;
-		$.autoFillSeperator.height = 0;
-		$.autoFillDateView.height = 0;
-		$.autoFillDateSeperator.height = 0;
-		$.autoFillChangeDateView.height = 0;
-		$.autoFillChangeDateSeperator.height = 0;
+
+	if (Alloy.CFG.is_delivery_option_enabled != 1) {
+		if (isAutoFillEligible()) {
+			setAccessibilityLabelOnSwitch($.autoFillSwt, $.strings.autoFillAttr);
+		} else if ((!Alloy.CFG.is_mscripts_autofill_enabled && prescription.is_autofill_eligible == "0")) {
+			$.autoFillSection.height = 0;
+			$.autoFillView.height = 0;
+			$.autoFillSeperator.height = 0;
+			$.autoFillDateView.height = 0;
+			$.autoFillDateSeperator.height = 0;
+			$.autoFillChangeDateView.height = 0;
+			$.autoFillChangeDateSeperator.height = 0;
+		}
 	}
+	
 }
 
 function setAccessibilityLabelOnSwitch(switchObj, strValue) {
@@ -239,9 +243,10 @@ function didGetStore(result, passthrough) {
 	var store = prescription.store;
 	_.extend(store, result.data.stores);
 	_.extend(store, {
-		title : $.utilities.ucword(store.addressline1),
-		subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + $.utilities.ucword(store.zip)
+		title : Alloy.CFG.is_storename_enabled == "1" ? $.utilities.ucword(store.store_name) : $.utilities.ucword(store.addressline1),
+		subtitle : (Alloy.CFG.is_storename_enabled == "1" ? ($.utilities.ucword(store.addressline1) + ", " + $.utilities.ucword(store.city)) : $.utilities.ucword(store.city)) + ", " + store.state + ", " + $.utilities.ucword(store.zip)
 	});
+
 	loadStore();
 }
 
@@ -249,8 +254,8 @@ function loadPresecription() {
 	/*
 	 * Hide schedule 2 drug for refill
 	 *
-	 */	
-	 if ($.refillBtn && (prescription.schedule == 2 || prescription.is_specialty_store === "1") ) {
+	 */
+	if ($.refillBtn && (prescription.schedule == 2 || prescription.is_specialty_store === "1")) {
 		$.refillBtn.height = 0;
 	}
 
@@ -291,7 +296,7 @@ function loadPresecription() {
 		$.quantityView.height = 0;
 	}
 
-	if ( prescription.is_autofill_eligible !== "1") {
+	if (Alloy.CFG.is_mscripts_autofill_enabled && prescription.is_autofill_eligible !== "1") {
 		$.autoFillDateView.height = 0;
 		$.autoFillDateSeperator.height = 0;
 		$.autoFillChangeDateView.height = 0;
@@ -308,8 +313,7 @@ function loadDoctor() {
 
 function loadStore() {
 	$.prescAsyncView.hide();
-	$.storeReplyLbl.text = Alloy.CFG.is_specialty_store_enabled ?(prescription.is_specialty_store && prescription.store_phone ? prescription.store_phone : prescription.store.title + "\n" + prescription.store.subtitle):
-	prescription.store.title + "\n" + prescription.store.subtitle;
+	$.storeReplyLbl.text = Alloy.CFG.is_specialty_store_enabled ? (prescription.is_specialty_store && prescription.store_phone ? prescription.store_phone : prescription.store.title + "\n" + prescription.store.subtitle) : prescription.store.title + "\n" + prescription.store.subtitle;
 	/**
 	 * Keep the expandable view opened
 	 * by default (PHA-1086)
@@ -341,94 +345,101 @@ function didUpdateUI() {
 }
 
 function didPostlayoutPrompt(e) {
-		var source = e.source,
+	var source = e.source,
 	    children = source.getParent().children;
-	    source.removeEventListener("postlayout", didPostlayoutPrompt);
-	    
+	source.removeEventListener("postlayout", didPostlayoutPrompt);
+	if (Alloy.CFG.is_delivery_option_enabled != 1) {
 		if (prescription.prefill !== "Y" && isAutoFillEligible()) {
-			if(Alloy.CFG.is_autofill_message_enabled) {
+			if (Alloy.CFG.is_autofill_message_enabled) {
 				$.autoFillDateView.height = 0;
 				$.autoFillDateSeperator.height = 0;
 				$.autoFillChangeDateView.height = 0;
 				$.autoFillChangeDateSeperator.height = 0;
-		    }
-		} 
+			}
+		}
 
-	    if(prescription.prefill === "Y" && isAutoFillEligible()) {
-	    	if(Alloy.CFG.is_autofill_message_enabled) {
-	    		$.autofillView.height = Ti.UI.SIZE;
-	    		$.autofillView.show();
-	    	}
-    		$.autoFillSwt.setValue(true, isWindowOpen);
+		if (prescription.prefill === "Y" && isAutoFillEligible()) {
+			if (Alloy.CFG.is_autofill_message_enabled) {
+				$.autofillView.height = Ti.UI.SIZE;
+				$.autofillView.show();
+			}
+			$.autoFillSwt.setValue(true, isWindowOpen);
 			$.reminderRefillView.applyProperties($.createStyle({
 				classes : ["auto-height", "inactive-lighter-bg-color"]
 			}));
 			$.reminderRefillView.add(noReminderLabel);
 			$.reminderRefillSwt.getSwitch().setEnabled(false);
-			if (prescription.nextAutofillPickupDate) {			
+			if (prescription.nextAutofillPickupDate) {
 				$.autoFillDate.setText(moment(prescription.nextAutofillPickupDate).format('ll'));
 			};
 			if (prescription.isAutofillPickupDateEditable !== "1") {
 				$.autoFillChangeDateView.applyProperties($.createStyle({
 					classes : ["auto-height", "inactive-lighter-bg-color"]
 				}));
+				$.autoFillChangeDateLbl.applyProperties($.createStyle({
+					classes : ["disabled-text-color"]
+				}));
+				$.autoFillChangeDate.applyProperties($.createStyle({
+					classes : ["disabled-text-color"]
+				}));
 				$.autoFillChangeDateView.removeEventListener('click', getPrefillOrderDetails);
 			} else {
 				$.autoFillChangeDateView.applyProperties($.createStyle({
 					classes : ["auto-height", "bg-color"]
-				}));	
+				}));
 				if (!$.autoFillChangeDateView._events) {
 					$.autoFillChangeDateView.addEventListener('click', getPrefillOrderDetails);
-				};	
+				};
 			}
-		} else if(prescription.prefill === "Y" && !Alloy.CFG.is_mscripts_autofill_enabled) {
-			if(Alloy.CFG.is_autofill_message_enabled) {
-	    		$.autofillView.height = Ti.UI.SIZE;
-	    		$.autofillView.show();
-	    	}
+		} else if (prescription.prefill === "Y" && !Alloy.CFG.is_mscripts_autofill_enabled) {
+			if (Alloy.CFG.is_autofill_message_enabled) {
+				$.autofillView.height = Ti.UI.SIZE;
+				$.autofillView.show();
+			}
 			$.reminderRefillView.hide();
-  			$.reminderRefillView.height = 0;
-		} else if(Alloy.CFG.is_autofill_message_enabled) {
+			$.reminderRefillView.height = 0;
+		} else if (Alloy.CFG.is_autofill_message_enabled) {
 			$.autofillView.hide();
 			$.autofillView.height = 0;
 		}
-	    
-	    children[1].applyProperties({
-			left : children[1].left + children[0].rect.width,
-			visible : true
-		});		    
+
+	}
+	children[1].applyProperties({
+		left : children[1].left + children[0].rect.width,
+		visible : true
+	});
 	postlayoutCount++;
 	if (postlayoutCount === 4) {
 		$.prescExp.setStopListening(true);
 	}
 }
-function didPostlayoutPromptStore(e){
-		var source = e.source,
+
+function didPostlayoutPromptStore(e) {
+	var source = e.source,
 	    children = source.getParent().children;
 
-	    source.removeEventListener("postlayout", didPostlayoutPromptStore);
+	source.removeEventListener("postlayout", didPostlayoutPromptStore);
 
-		if(prescription.is_specialty_store || "1" === prescription.syncScriptEnrolled) {
-			$.reminderRefillView.hide();
-			$.reminderRefillView.height = 0;
+	if (prescription.is_specialty_store || "1" === prescription.syncScriptEnrolled) {
+		$.reminderRefillView.hide();
+		$.reminderRefillView.height = 0;
 
-		}
+	}
 
-	    if(prescription.is_specialty_store && prescription.store_phone){	    		    
-	    children[1].applyProperties({
+	if (prescription.is_specialty_store && prescription.store_phone) {
+		children[1].applyProperties({
 			left : children[1].left + children[0].rect.width,
 			visible : true
-		});		    		
+		});
 		children[2].applyProperties({
 			left : children[0].rect.width + (2 * children[1].rect.width),
 			visible : true
 		});
-	}
-	else{
-	    children[2].applyProperties({
+	} else {
+		children[2].applyProperties({
 			left : children[2].left + children[0].rect.width,
 			visible : true
-		});	
+		});
 	}
 	postlayoutCount++;
 	if (postlayoutCount === 4) {
@@ -436,41 +447,38 @@ function didPostlayoutPromptStore(e){
 	}
 }
 
-function didClickStore(e){
-	if(Alloy.CFG.is_specialty_store_enabled){	
-	if(prescription.is_specialty_store && prescription.store_phone){
+function didClickStore(e) {
+	if (Alloy.CFG.is_specialty_store_enabled) {
+		if (prescription.is_specialty_store && prescription.store_phone) {
 			storePhone();
+		} else {
+			$.app.navigator.open({
+				titleid : "titleStoreDetails",
+				ctrl : "storeDetails",
+				ctrlArguments : {
+					store : prescription.store
+				},
+				stack : true
+			});
 		}
-	else{
-	  $.app.navigator.open({
-		  titleid : "titleStoreDetails",
-		  ctrl : "storeDetails",
-		  ctrlArguments : {
-			  store : prescription.store
-		  },
-		  stack : true
-	  });
-	 }
+	} else {
+		$.app.navigator.open({
+			titleid : "titleStoreDetails",
+			ctrl : "storeDetails",
+			ctrlArguments : {
+				store : prescription.store
+			},
+			stack : true
+		});
 	}
-	else{
-	  $.app.navigator.open({
-		  titleid : "titleStoreDetails",
-		  ctrl : "storeDetails",
-		  ctrlArguments : {
-			  store : prescription.store
-		  },
-		  stack : true
-	  });
-	 }
 }
 
-function storePhone(){
-	if(!Titanium.Contacts.hasContactsPermissions()) {
-		Titanium.Contacts.requestContactsPermissions(function(result){
-			if(result.success) {
+function storePhone() {
+	if (!Titanium.Contacts.hasContactsPermissions()) {
+		Titanium.Contacts.requestContactsPermissions(function(result) {
+			if (result.success) {
 				contactsHandler();
-			}
-			else{
+			} else {
 				$.analyticsHandler.trackEvent("Spacialty-ContactDetails", "click", "DeniedContactsPermission");
 			}
 		});
@@ -478,15 +486,16 @@ function storePhone(){
 		contactsHandler();
 	}
 }
+
 function contactsHandler() {
-	 if (prescription.store_phone!= null) {
-		 $.uihelper.getPhone({
-			 firstName : prescription.original_store_store_name,
-			 phone : {
-				 work : [prescription.store_phone]
-			 }
-		 }, prescription.store_phone);
-	 }
+	if (prescription.store_phone != null) {
+		$.uihelper.getPhone({
+			firstName : prescription.original_store_store_name,
+			phone : {
+				work : [prescription.store_phone]
+			}
+		}, prescription.store_phone);
+	}
 }
 
 function didClickDoctor(e) {
@@ -896,7 +905,7 @@ function didNotRemoveMedReminder(result, passthrough) {
 
 function terminate() {
 	// if (httpClient) {
-		// httpClient.abort();
+	// httpClient.abort();
 	// }
 }
 
@@ -914,19 +923,18 @@ function loadCopay() {
 			} else {
 				logger.debug("copay is null");
 				// $.copayView.hide(true);
-				if($.copayView) {
+				if ($.copayView) {
 					$.copayView.height = 0;
 				}
 			}
 		}
 	} else {
-		if($.copayView) {
+		if ($.copayView) {
 			$.copayView.height = 0;
 		}
 
 	}
 }
-
 
 function didChangeAutoFill(e) {
 	e.value ? isAutofillEnabled = "1" : isAutofillEnabled = "0";
@@ -936,14 +944,12 @@ function didChangeAutoFill(e) {
 	$.http.request({
 		method : "update_mscripts_autofill",
 		params : {
-			data : [
-	          {
-	              "updateAutofill": [{
-	                  "prescriptionId": prescription.id,
-	                  "isMscriptsAutofillEnabled": isAutofillEnabled
-	              }]
-	          }
-	      ]
+			data : [{
+				"updateAutofill" : [{
+					"prescriptionId" : prescription.id,
+					"isMscriptsAutofillEnabled" : isAutofillEnabled
+				}]
+			}]
 		},
 		keepLoader : false,
 		errorDialogEnabled : false,
@@ -954,7 +960,7 @@ function didChangeAutoFill(e) {
 
 function didSuccessAutoFill(result, passthrough) {
 	//$.autoFillSwt.setValue(true, isWindowOpen);
-	if(isAutofillEnabled === "1") {
+	if (isAutofillEnabled === "1") {
 		prescription.prefill = "Y";
 		if (result.data.updateAutofill[0].nextAutofillPickupDate) {
 			$.autoFillDate.setText(moment(result.data.updateAutofill[0].nextAutofillPickupDate).format('ll'));
@@ -963,24 +969,30 @@ function didSuccessAutoFill(result, passthrough) {
 			$.autoFillChangeDateView.applyProperties($.createStyle({
 				classes : ["auto-height", "inactive-lighter-bg-color"]
 			}));
+			$.autoFillChangeDateLbl.applyProperties($.createStyle({
+				classes : ["disabled-text-color"]
+			}));
+			$.autoFillChangeDate.applyProperties($.createStyle({
+				classes : ["disabled-text-color"]
+			}));
 			$.autoFillChangeDateView.removeEventListener('click', getPrefillOrderDetails);
 		} else {
 			$.autoFillChangeDateView.applyProperties($.createStyle({
 				classes : ["auto-height", "bg-color"]
-			}));	
+			}));
 			if (!$.autoFillChangeDateView._events) {
 				$.autoFillChangeDateView.addEventListener('click', getPrefillOrderDetails);
-			};	
+			};
 		}
-		if(Alloy.CFG.is_autofill_message_enabled) {
+		if (Alloy.CFG.is_autofill_message_enabled) {
 			$.autofillView.show();
 			$.autofillView.height = Ti.UI.SIZE;
 		}
-		if($.autoFillSwt.getValue()) {
-			$.autoFillDateView.height =  Ti.UI.SIZE;
-			$.autoFillDateSeperator.height =  1;
-			$.autoFillChangeDateView.height =  Ti.UI.SIZE;
-			$.autoFillChangeDateSeperator.height =  1;
+		if ($.autoFillSwt.getValue()) {
+			$.autoFillDateView.height = Ti.UI.SIZE;
+			$.autoFillDateSeperator.height = 1;
+			$.autoFillChangeDateView.height = Ti.UI.SIZE;
+			$.autoFillChangeDateSeperator.height = 1;
 		} else {
 			$.autoFillDateView.height = 0;
 			$.autoFillDateSeperator.height = 0;
@@ -991,16 +1003,15 @@ function didSuccessAutoFill(result, passthrough) {
 			classes : ["auto-height", "inactive-lighter-bg-color"]
 		}));
 		$.reminderRefillView.add(noReminderLabel);
-		if($.reminderRefillSwt.getValue()) {
+		if ($.reminderRefillSwt.getValue()) {
 			$.reminderRefillSwt.setValue(false, isWindowOpen);
 		}
 		$.reminderRefillSwt.getSwitch().setEnabled(false);
-	}
-	else {
+	} else {
 		prescription.prefill = "N";
-		if(Alloy.CFG.is_autofill_message_enabled) {
+		if (Alloy.CFG.is_autofill_message_enabled) {
 			$.autofillView.hide();
-			$.autofillView.height = 0;	
+			$.autofillView.height = 0;
 			$.autoFillDateView.height = 0;
 			$.autoFillDateSeperator.height = 0;
 			$.autoFillChangeDateView.height = 0;
@@ -1022,8 +1033,8 @@ function didFailAutoFill(result) {
 	});
 }
 
- function isAutoFillEligible() {
-	if(Alloy.CFG.is_mscripts_autofill_enabled && prescription.is_autofill_eligible == "1") {
+function isAutoFillEligible() {
+	if (Alloy.CFG.is_mscripts_autofill_enabled && prescription.is_autofill_eligible == "1") {
 		return true;
 	} else {
 		return false;
@@ -1039,15 +1050,15 @@ function getPrefillOrderDetails() {
 					"uniqueToken" : prescription.uniqueToken
 				}
 			}],
-		  	"filter": null
+			"filter" : null
 		},
 		success : didSuccessInGetPrefillOrderDetails,
 		failure : didFailureInGetPrefillOrderDetails
-	}); 
+	});
 }
 
 function didFailureInGetPrefillOrderDetails(result, passthrough) {
-	
+
 }
 
 function didSuccessInGetPrefillOrderDetails(result, passthrough) {
@@ -1063,19 +1074,22 @@ function didSuccessInGetPrefillOrderDetails(result, passthrough) {
 			},
 			"prefillRx" : result.data.prefillRx
 		}
-	}; 
-	
+	};
+
 	showDatePicker(result.data);
 }
 
 function showDatePicker(passthrough) {
-	prefillRx = _.findWhere(changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx, {"prescriptionId": prescription.id, "prescriptionStatus": "Active"});
+	prefillRx = _.findWhere(changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx, {
+		"prescriptionId" : prescription.id,
+		"prescriptionStatus" : "Active"
+	});
 	changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx = [];
-	
+
 	var promisedDate = moment(prefillRx.promisedDate),
 	    minDate = moment(prefillRx.earliestModifiedPromiseDate),
 	    maxDate = moment(prefillRx.latestModifiedPromiseDate);
-	
+
 	dateDropdownArgs.value = new Date(promisedDate);
 	dateDropdownArgs.minDate = new Date(minDate);
 	dateDropdownArgs.maxDate = new Date(maxDate);
@@ -1114,7 +1128,7 @@ function changePrefillDate(date, passthrough) {
 	prefillRx.modifiedPromiseDate = moment(modifiedPromisedDate).format("YYYY-MM-DD HH:mm:ss");
 	prefillRx = _.omit(prefillRx, 'promiseDateInDayOfWeekMonthDateFormat', 'prescriptionStatus');
 	changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx.push(prefillRx);
-	
+
 	$.http.request({
 		method : "change_prefill_target_date",
 		params : {

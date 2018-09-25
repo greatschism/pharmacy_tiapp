@@ -1,0 +1,23 @@
+<Alloy>
+	<TableView id="tableView">
+		<HeaderView>
+			<View class="auto-height vgroup">
+				<Label id="lbl" class="margin-top-large margin-left margin-right h2 txt-center" />
+				<ImageView id="img" />
+				<Label id="lblContact" textAlign="center" class="margin-top-large margin-left margin-right margin-bottom" />
+ 
+			</View>
+		</HeaderView>
+		<FooterView>
+			<View class="auto-height vgroup" onClick="handleEvent">
+				<!--footer separator seems to appear on pre lollipop devices-->
+				<View class="h-divider-light" if="Alloy.Globals.isLollipop" />
+				<!--footer separator seems to disappear on iOS-->
+				<View class="h-divider-light" platform="ios" />
+				<Label id="signupLbl" class="margin-top margin-left margin-right" if="$.args.signupEnabled" />
+				<Button id="signupBtn" class="margin-top primary-bg-color primary-font-color primary-border" onClick="didClickSignup" if="$.args.signupEnabled" />
+				<Button id="doneBtn" class="margin-top margin-bottom bg-color primary-fg-color primary-border" onClick="didClickDone" />
+			</View>
+		</FooterView>
+	</TableView>
+</Alloy>
