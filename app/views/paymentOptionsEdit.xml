@@ -1,0 +1,17 @@
+<Alloy>
+	<TableView id="tableView" class="top margin-bottom" onSingletap="didClickTableView">
+		<FooterView>
+			<View id="footerView" class="auto-height hgroup ">
+				<Label id="addLbl" class="margin-left-medium margin-top-large i5 bg-color primary-fg-color border-disabled icon-add" />
+				<Button id="addBtn" class="top bg-color primary-fg-color border-disabled button txt-left" onClick="didClickAdd" />
+			</View>
+		</FooterView>
+	</TableView>
+	<View id="bottomView" class="top-disabled margin-bottom auto-height vgroup" onPostlayout="didPostlayout">
+		<Button id="submitBtn" class="margin-top margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickSubmit" />
+	</View>
+	<View id="cardInfoView" class="top-disabled bottom-disabled auto-height vgroup hide">
+		<WebView id="webView" class="fill-height"/>
+	</View>
+	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-fill hide" />
+</Alloy>

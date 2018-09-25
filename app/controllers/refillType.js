@@ -441,8 +441,8 @@ function didGetStore(result, passthrough) {
 	 */
 	_.extend(store, result.data.stores);
 	_.extend(store, {
-		title : $.utilities.ucword(store.addressline1),
-		subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip
+		title : Alloy.CFG.is_storename_enabled == "1" ? $.utilities.ucword(store.store_name) : $.utilities.ucword(store.addressline1),
+		subtitle : (Alloy.CFG.is_storename_enabled == "1" ? ($.utilities.ucword(store.addressline1) + ", " + $.utilities.ucword(store.city)) : $.utilities.ucword(store.city)) + ", " + store.state + ", " + store.zip
 	});
 	logger.debug("\n\n\n in didgetstore store obj", JSON.stringify(store, null, 4), "\n\n\n");
 
@@ -616,9 +616,8 @@ function updatePickupOption() {
 		Alloy.Globals.isMailOrderService = true;
 		store = {};
 		if($.pickupTgHeaderView && $.pickupTgHeaderView != null) {
-			$.pickupTgHeaderView.hide();
+			updatePickTimegroupView(true);
 		}
-
 		if (Alloy.Models.appload.get("mail_order_store_id") > 0) {
 			if ($.storeView.visible) {
 				$.pickupView.remove($.storeView);
@@ -710,8 +709,8 @@ function didGetMailOrderStores(result, passthrough) {
 	if (isLastFilled === 1) {
 		_.extend(store, result.data.stores.stores_list[0]);
 		_.extend(store, {
-			title : $.utilities.ucword(store.addressline1),
-			subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip
+			title : Alloy.CFG.is_storename_enabled == "1" ? $.utilities.ucword(store.store_name) : $.utilities.ucword(store.addressline1),
+			subtitle : (Alloy.CFG.is_storename_enabled == "1" ? ($.utilities.ucword(store.addressline1) + ", " + $.utilities.ucword(store.city)) : $.utilities.ucword(store.city)) + ", " + store.state + ", " + store.zip
 		});
 
 		// _.each(result.data.stores.stores_list, function(store) {
