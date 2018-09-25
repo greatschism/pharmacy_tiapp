@@ -129,6 +129,7 @@ function setTitle(title) {
     if(title == "Home" && (Alloy.CFG.homescreen_template_banner_below === "homescreenTemplateBannerBelow")) {
    		$.window.titleControl.text = "";
 	} else {
+		$.window.titleControl.ellipsize = Titanium.UI.TEXT_ELLIPSIZE_TRUNCATE_CHAR_WRAP;
 		$.window.titleControl.text = title;
 	}
 }
