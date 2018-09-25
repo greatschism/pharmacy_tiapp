@@ -1,0 +1,11 @@
+"#addBtn":{
+	// title: Alloy.Globals.strings.loginBtnLogin
+	title: "Add New Card"
+},
+"#doneBtn":{
+	title: "Done"
+},
+"#submitBtn":{
+	title: "Submit"
+}
+

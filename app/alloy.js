@@ -39,6 +39,7 @@
 	Alloy.Collections.termsAndConditions = new Backbone.Collection();
 	Alloy.Collections.patients = new Backbone.Collection();
 	Alloy.Collections.reminderColors = new Backbone.Collection();
+	Alloy.Collections.deliveryOptions = new Backbone.Collection();
 
 	//models
 	Alloy.Models.appconfig = new Backbone.Model();
