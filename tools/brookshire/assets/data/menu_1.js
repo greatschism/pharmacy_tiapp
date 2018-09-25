@@ -52,23 +52,18 @@ module.exports = {
 		"requires_login" : true
 	}, {
 		"titleid" : "titleFacebook",
-		"url" : "https://www.facebook.com/Fairview",
+		"url" : "https://www.facebook.com/BrookshireBros/",
 		"icon" : "facebook",
 		"requires_login" : false
 	}, {
 		"titleid" : "titleTwitter",
-		"url" : "https://twitter.com/FairviewHealth",
+		"url" : "https://twitter.com/BrookshireBros/",
 		"icon" : "twitter",
 		"requires_login" : false
 	}, {
 		"titleid" : "titleYoutube",
-		"url" : "http://www.youtube.com/Fairviewhealth",
+		"url" : "https://www.youtube.com/user/bbros1921",
 		"icon" : "youtube",
-		"requires_login" : false
-	}, {
-		"titleid" : "titlePharmacySpecials",
-		"url" : "https://www.fairview.org/~/media/Fairview/PDFs/Pharmacy/In-Store-Pharmacy-Specials.ashx?la=en",
-		"icon" : "pharacyspecials",
 		"requires_login" : false
 	}, {
 		"titleid": "titleHelp",
