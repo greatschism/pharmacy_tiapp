@@ -310,7 +310,7 @@ function unhideDoctors() {
 				doctors : d
 			}]
 		},
-		passthrough : data,
+		passthrough : d,
 		success : didSuccessDoctor
 	});
 }
