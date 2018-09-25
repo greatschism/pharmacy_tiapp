@@ -102,7 +102,7 @@ module.exports = {
 		"msgRxNumberTips" : "Your Rx number can be found on your prescription bottle. You can use any prescription.",
 		"msgAutoLogin" : "Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
 		"msgTouchIDReset":"You have entered login credentials which do not match those at the time you enabled Touch ID.  Due to this, you will need to re-enable Touch ID in order to continue using it.",
-        "msgTouchIDDisclaimer": "All users with a registered fingerprint ont his device will be able to log in. Please use caution when allowing others access.",
+        "msgTouchIDDisclaimer": "All users with a registered fingerprint on this device will be able to log in. Please use caution when allowing others access.",
         "msgTouchIdWithAuto": "Turning this feature on requires your fingerprint or device passcode to sign in.",
         "msgTouchIdWithoutAuto": "Turning this feature on allows you to sign in with your fingerprint.",
         "msgTouchIdOff": "You have just disabled touch ID for signing in. You will now have to enter your password to log in.",
@@ -239,6 +239,7 @@ module.exports = {
 		"titleManageAdult" : "Manage an adult",
 		"titleAddAnAdult" : "Add an adult",
 		"titleInsuranceCard" : "Update insurance card",
+		"titleInsurance" : "Update Insurance",
 		"titleRegister" : "Account creation",
 		"titleTransferSuccess" : "Order processed",
 		"titleRefillOrdered" : "Order processed",
@@ -1099,8 +1100,21 @@ module.exports = {
 		"prescDetAccessibilityReminderMed" : "Set a time to take this medication",
 		"accessibilityColorPicker" : "Color picker. This is optional.",
 		"accessibilityAddFamilyIconButton" : "Add family.",
+		
+		"expPickupBenefitsSignupBtn" : "Sign me up",
+		"expPickupBenefitsSkipSignupBtn" : "Sign up later",
+		"expPickupBenefitsDescription" : "Minimize your time at the pharmacy by answering your transaction questions and selecting payment method ahead of time. A unique confirmation code is provided for scanning at the register for self-identification and enhanced privacy.",
+		"expPickupBenefitsFeatureTitle" : "Please store your credit card on file with your pharmacy to enable use of this feature",
+		"expPickupBenefitsListTitle" : "Express Pick-up provides the following benefits:",
+		"expPickupBenefitsList1" : "Save time by completing your transaction ahead of time!",
+		"expPickupBenefitsList2" : "Select your prescriptions and payment from the privacy of your home.",
+		"expPickupBenefitsList3" : "Have a question for your pharmacist? You now have the ability to request in-store counseling from your mobile phone.",
+		"expPickupBenefitsList4" : "Household sharing one card? No problem. With Express Pick-up, the physical card does not need to be present at the time of pick up.",
+		"expPickupBenefitsList5" : "At %s, we take your privacy seriously. At the close of your transaction, you will be provided with a scan code which can be used to identify you without having to provide a name and date of birth to the store employee.",
+		"expPickupBenefitsTitle" : "What is it?",
 		"expPickupBenefitsCloseBtn" : "Close",
 		"expPickupBenefitsDoneBtn" :"Done",
+		
 		"vSixCarouselTitle" : "What's new!",
         "autoFillAttr": "Automatically refill this medication",
         "autoFillDateLbl": "Next Refill Date is Scheduled on - ",
@@ -1108,6 +1122,7 @@ module.exports = {
         "autoFillDate": "June 17, 2018",
         "autoFillChangeDate": "M",
 		"prescDetSectionAutofill" : "Autofill",
-		"prescDetSectionNoReminders" : "Reminders cannot be adjusted and are sent via Autofill Program"
+		"prescDetSectionNoReminders" : "Reminders cannot be adjusted and are sent via Autofill Program",
+		"prescriptionsInProcessNewTime": "Click here to select new time"
 	}
 };
