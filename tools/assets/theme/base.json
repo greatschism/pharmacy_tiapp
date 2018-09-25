@@ -1064,6 +1064,10 @@
                 "color":"${TENTATIVE_COLOR}",
                 "selectedColor":"${TENTATIVE_SELECTED_COLOR}"
             },
+            ".disabled-text-color":{
+                "color":"${DISABLED_TEXT_COLOR}",
+                "selectedColor":"${DISABLED_TEXT_COLOR}"
+            },
             ".txt-tool-tip[platform=ios]":{
             	"left":"${MARGIN_LEFT}",
             	"right":"${MARGIN_RIGHT}",
