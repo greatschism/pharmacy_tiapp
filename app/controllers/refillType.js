@@ -615,8 +615,9 @@ function updatePickupOption() {
 	case apiCodes.pickup_mode_mail_order:
 		Alloy.Globals.isMailOrderService = true;
 		store = {};
-
-		pickupTgHeaderView.hide();
+		if($.pickupTgHeaderView && $.pickupTgHeaderView != null) {
+			$.pickupTgHeaderView.hide();
+		}
 
 		if (Alloy.Models.appload.get("mail_order_store_id") > 0) {
 			if ($.storeView.visible) {
