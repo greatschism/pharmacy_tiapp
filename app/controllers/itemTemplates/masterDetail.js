@@ -46,6 +46,20 @@ var args = $.args,
 		$.tertiaryTitleLbl.height = 0;
 	}
 
+	if (args.detailClasses) {
+		$.resetClass($.detailTitleLbl, args.detailClasses);
+		$.resetClass($.detailSubtitleLbl, args.detailClasses);
+		$.resetClass($.detailTertiaryLbl, args.detailClasses);
+	}
+
+	if (args.detailTertiaryTitle) {
+		var detailTertiaryClassPrefix = args.detailTertiaryType ? args.detailTertiaryType + "-" : "";
+
+		$.addClass($.detailTertiaryLbl, [detailTertiaryClassPrefix + "fg-color"], {
+			text : args.detailTertiaryTitle || (args.data ? args.data[args.detailTertiaryTitleProperty] : "")
+		});
+	}
+
 	var detailClassPrefix = args.detailType ? args.detailType + "-" : "";
 	$.addClass($.detailTitleLbl, [detailClassPrefix + "fg-color"], {
 		text : args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : "")
