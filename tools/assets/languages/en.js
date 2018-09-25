@@ -102,7 +102,7 @@ module.exports = {
 		"msgRxNumberTips" : "Your Rx number can be found on your prescription bottle. You can use any prescription.",
 		"msgAutoLogin" : "Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
 		"msgTouchIDReset":"You have entered login credentials which do not match those at the time you enabled Touch ID.  Due to this, you will need to re-enable Touch ID in order to continue using it.",
-        "msgTouchIDDisclaimer": "All users with a registered fingerprint ont his device will be able to log in. Please use caution when allowing others access.",
+        "msgTouchIDDisclaimer": "All users with a registered fingerprint on this device will be able to log in. Please use caution when allowing others access.",
         "msgTouchIdWithAuto": "Turning this feature on requires your fingerprint or device passcode to sign in.",
         "msgTouchIdWithoutAuto": "Turning this feature on allows you to sign in with your fingerprint.",
         "msgTouchIdOff": "You have just disabled touch ID for signing in. You will now have to enter your password to log in.",
