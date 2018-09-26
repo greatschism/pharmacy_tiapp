@@ -133,8 +133,10 @@ function performDeepLinkAction() {
 
 			Alloy.Collections.prescriptions.each(function(prescription) {
 					Ti.API.info("prescription IS "+ JSON.stringify(prescription))
+					//Ti.API.info("prescription.rx_number IS "+ prescription.get("uniqueToken") )
+					//if (prescription.get("uniqueToken") === autofillToken  ) {
+					//BELOW:  user rx_number for dev purposes if a uniqueToken is not avaialable
 					Ti.API.info("prescription.rx_number IS "+ prescription.get("rx_number") )
-
 					if (prescription.get("rx_number") === autofillToken  ) {
 						Ti.API.info( "aufoillToken is FOUND!!! "+ autofillToken )
 						matchedRX = prescription
