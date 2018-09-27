@@ -9,7 +9,7 @@
 	if (!ENV_PROD && Alloy.CFG.unit_test_enabled) {
 		require("specs/app_test").run(init);
 	} else {
-		init()
+		init();
 	}
 })();
 

@@ -18,10 +18,8 @@ var args = $.args,
 
 function confirmUrlRedirect(url, resumed) {
 
-	Ti.API.info(" !!! confirmUrlRedirect !!! ");
 	var autofillToken = (url.split('token='))[1];
 	if (typeof autofillToken === 'undefined') {
-		Ti.API.info("atufoill token undefined after parsing");
 		//if an autofill token parameter was not received, then bail on the deeplink process
 		Alloy.Globals.url = undefined;
 		return false;
@@ -33,7 +31,7 @@ function confirmUrlRedirect(url, resumed) {
 	Alloy.Globals.url = url;	//globals url value is trimmed at this point
 
 	if (resumed === true) {
-		urlRedirectTo("titlePrescriptions", "prescriptions")
+		urlRedirectTo("titlePrescriptions", "prescriptions");
 	} else {
 		needsUrlRedirect = true;
 		return true;
@@ -56,12 +54,8 @@ function init() {
 
 		if( Alloy.CFG.enable_autofill_deep_link === "enableAutofillDeepLink" ) {
 			$.rootWindow.addEventListener('open', function (e) {
-		    	Ti.API.info( "deep link opened" );
 
-		    	Ti.API.info(" Ti.App.getArguments().url" + JSON.stringify( Ti.App.getArguments().url) )
-			    
-
-		    	Ti.API.info(" Alloy.Globals.url" + JSON.stringify( Alloy.Globals.url) )
+		    	logger.debug(" Ti.App.getArguments().url" + JSON.stringify( Ti.App.getArguments().url) );
 					
 				//Ti.App.getArguments().url used for URL scheme recovery as opposed to associated domains
 				//This left in for potential future use
@@ -75,17 +69,13 @@ function init() {
 
 		        // Handle the URL in case it resumed the app
 		        Ti.App.addEventListener('resumed', function () {
-			    	Ti.API.info("resumed")
-
 					if( typeof Alloy.Globals.url === 'string'  ) {
-						Ti.API.info( "redirect is gettin confirmed" )
 						confirmUrlRedirect(Alloy.Globals.url, true);
 						openedViaUrl = true;
 					}
 
 					//Ti.App.getArguments().url used for URL scheme recovery as opposed to associated domains
 					//This left in for potential future use
-		    		Ti.API.info( JSON.stringify( Ti.App.getArguments().url) )
 			     	if( typeof Ti.App.getArguments().url === 'string' ) {
 		     			confirmUrlRedirect(Ti.App.getArguments().url, true);
 		     		}
@@ -179,7 +169,7 @@ function didAuthenticate(passthrough, navigationHandled) {
 
 	if (needsUrlRedirect) {
 		needsUrlRedirect = false;
-		urlRedirectTo("titlePrescriptions", "prescriptions")
+		urlRedirectTo("titlePrescriptions", "prescriptions");
 	} else if (Alloy.Globals.isAccountUpgraded) {
 		whenAccountUpgraded();
 	} else  if (!navigationHandled && !needsUrlRedirect) {
@@ -268,7 +258,6 @@ function whenAccountUpgraded() {
 			stack : false
 		});
 	} else if (!needsUrlRedirect) {
-		//TODO: ^^ evaluate this flow in regards to the deep links
 		/**
 		 * remove the entry from the properties so that HIPAA is not displayed to the user next time
 		 */
