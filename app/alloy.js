@@ -10,37 +10,6 @@
 	_.each(["alloy/moment-timezone", "alloy/underscore", "styleSheets", "com.scule", "utilities", "encryptionUtil", "com.scule.tiencrypted", "uihelper", "core", "resources", "config", "localization", "logger", "http", "ctrlShortCode", "requestwrapper", "authenticator", "analyticsHandler", "barcode", "navigationHandler", "feedbackHandler", "notificationHandler", "notificationPanel", "rx", "refillScan", "ti-qrcode-master/qrcode"], function(module) {
 		require(module);
 	});
-		
-	//Android picks up the intent payload passed via URL in alloy.js immediately after launch
-	if (OS_ANDROID) {
-		//set the Alloy.Globals.url property if the app was opened via url
-		Ti.API.info(" Ti.Android.currentActivity.intent = "+JSON.stringify(Ti.Android.currentActivity.intent));
-		Alloy.Globals.url = undefined;
-		if(typeof Ti.Android.currentActivity.intent !== undefined) {
-			if(typeof Ti.Android.currentActivity.intent.data !== undefined) {
-				//does the intent data contain a custom url for the meijer app?
-				if(JSON.stringify(Ti.Android.currentActivity.intent.data).indexOf("meijerrx://") != -1 && 
-					(JSON.stringify(Ti.Android.currentActivity.intent.data) !== "\"meijerrx://\"") ) {
-				    Alloy.Globals.url = JSON.stringify(Ti.Android.currentActivity.intent.data);
-				    //open and closing quote must be stripped from this passed url directive
-				    if(Alloy.Globals.url.indexOf('"') === 0){
-				    	Alloy.Globals.url = (Alloy.Globals.url.split('"'))[1];
-				    }
-				}
-			}
-		}
-	} else if (OS_IOS) {
-		//url passed via associated domain captured here and assigned to Alloy.Globals.url
-	    Ti.App.iOS.addEventListener('continueactivity', function(e){
-			if(e.activityType === "NSUserActivityTypeBrowsingWeb"){
-	    		Ti.API.info( JSON.stringify( e.webpageURL) );
-		        // Handle the URL in case it opened the app
-		     	if( typeof e.webpageURL === 'string' ) {
-	     			Alloy.Globals.url = e.webpageURL;
-	     		}
-	     	}
-	    });
-	}
 	
 	//CFG
 	/**
@@ -57,6 +26,23 @@
 	Alloy.Globals.filterAttribute = OS_IOS ? "filter" : "title";
 	Alloy.Globals.isLollipop = OS_ANDROID && Ti.Platform.Android.API_LEVEL >= 21;
 	Alloy.Globals.isVirtualDevice = Ti.Platform.model === "Simulator" || Ti.Platform.model.indexOf("sdk") !== -1;
+	if (OS_ANDROID)
+	{
+		Alloy.Globals.androidIntent = Ti.Android.currentActivity.intent;		
+	} else {
+		/**
+		 * 	Need to validate other positions for this listeners
+		 */
+		/*
+		Ti.App.iOS.addEventListener('continueactivity', function(e) {
+			if (e.activityType === "NSUserActivityTypeBrowsingWeb") {
+				Ti.API.info(JSON.stringify(e.webpageURL));
+				if ( typeof e.webpageURL === 'string') {
+					Alloy.Globals.url = e.webpageURL;
+				}
+			}
+		});*/
+	}
 
 	/**
 	 * Alloy.createModel / Alloy.createCollection can be used only when we need to get / set data in persistent storage (sqlite)

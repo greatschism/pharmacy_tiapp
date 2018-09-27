@@ -18,6 +18,7 @@ var args = $.args,
 	encryptionUtil = require("encryptionUtil"),
 	resources = require("resources"),
     touchID = require("touchid"),
+    deeplinkHandler = require("deeplinkHandler"),
     localBiometricFlag = false,
 
 
@@ -272,6 +273,7 @@ function didSuccessAppload(result) {
 		 */
 		logger.debug("\n\n\n clientConfig ", JSON.stringify(clientConfig), "\n\n\n");
 
+	    deeplinkHandler.init();
 		var configChanges = config.init(clientConfig);
 		logger.debug("configChanges", JSON.stringify(configChanges), "\n");
 		logger.debug("Is app first Launch",utilities.getProperty(Alloy.CFG.first_launch_app, true, "bool", false));
