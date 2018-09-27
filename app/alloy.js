@@ -29,21 +29,8 @@
 	if (OS_ANDROID)
 	{
 		Alloy.Globals.androidIntent = Ti.Android.currentActivity.intent;		
-	} else {
-		/**
-		 * 	Need to validate other positions for this listeners
-		 */
-		/*
-		Ti.App.iOS.addEventListener('continueactivity', function(e) {
-			if (e.activityType === "NSUserActivityTypeBrowsingWeb") {
-				Ti.API.info(JSON.stringify(e.webpageURL));
-				if ( typeof e.webpageURL === 'string') {
-					Alloy.Globals.url = e.webpageURL;
-				}
-			}
-		});*/
 	}
-
+	
 	/**
 	 * Alloy.createModel / Alloy.createCollection can be used only when we need to get / set data in persistent storage (sqlite)
 	 * Backbone is directly accessed for temporary storage & to utilize the backbone events
