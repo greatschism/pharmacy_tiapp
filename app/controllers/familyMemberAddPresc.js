@@ -167,7 +167,7 @@ function didAddPrescriptions() {
 	$.utilities.setProperty("familyMemberAddPrescFlow", true, "bool", true);
 	authenticator.updateFamilyAccounts({	
 		success : function didUpdateFamilyAccounts() {
-			if (Alloy.Globals.is_hipaa_url_enabled) {
+			if (Alloy.CFG.is_hipaa_url_enabled) {
 				$.app.navigator.open({
 					ctrl : "hipaa",
 					titleid : "titleHIPAAauthorization",

@@ -495,7 +495,7 @@ function didAuthenticate(passthrough) {
 	 */
 
 	if (utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA" || Alloy.Globals.isAccountUpgraded) {
-		if (Alloy.Globals.is_hipaa_url_enabled) {
+		if (Alloy.CFG.is_hipaa_url_enabled) {
 			$.app.navigator.open({
 				ctrl : "hipaa",
 				titleid : "titleHIPAAauthorization",
