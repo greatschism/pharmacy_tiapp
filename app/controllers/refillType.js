@@ -299,8 +299,7 @@ function didRefill(result, passthrough) {
 			pickupMode : Alloy.Models.pickupModes.get("selected_code_value"),
 			signupEnabled : !Alloy.Globals.isLoggedIn && hasSuccess,
 			phone : phone
-		},
-		stack : true
+		}
 	});
 }
 
