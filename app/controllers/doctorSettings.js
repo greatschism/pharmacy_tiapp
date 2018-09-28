@@ -2,7 +2,8 @@ var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     doctor = args.doctor,
     isWindowOpen,
-    keyboardModule = require("com.mscripts.hidekeyboard");
+    keyboardModule = require("com.mscripts.hidekeyboard"),
+    logger = require("logger");
 
 function init() {
 	/**
@@ -35,6 +36,9 @@ function focus() {
 			});
 		}
 	}
+
+	logger.debug("\n\n\ args doc data		", JSON.stringify(doctor), "\n\n\n");
+
 }
 
 function didGetStates(result, passthrough) {
@@ -189,7 +193,8 @@ function didClickSubmit(e) {
 		zip : $.zipTxt.getValue(),
 		city : $.cityTxt.getValue(),
 		state : _.isEmpty(state) ? "" : state.code_value,
-		notes : $.notesTxta.getValue()
+		notes : $.notesTxta.getValue(),
+		is_hidden : "0"
 	});
 	if (args.isUpdate) {
 		_.extend(data, {
@@ -239,19 +244,67 @@ function didSuccessDoctor(result, passthrough) {
 }
 
 function didClickRemove(e) {
-	if (doctor.doctor_type != apiCodes.doctor_type_manual) {
-		$.uihelper.showDialog({
-			message : $.strings.doctorSettingsMsgRemoveRestricted
-		});
+	if (Alloy.CFG.is_doctorsremove_enabled == "1") {
+		if (doctor.subtitle == $.strings.doctorsLblPrescribedNone || doctor.subtitle == $.strings.doctorsLblManual) {
+			// remove
+			$.uihelper.showDialog({
+				message : String.format($.strings.doctorSettingsMsgRemoveConfirm, doctor.title),
+				buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
+				cancelIndex : 1,
+				success : didConfirmRemove
+			});
+		} else {
+			// hide
+			$.uihelper.showDialog({
+				message : String.format($.strings.prescMsgHideConfirm, doctor.title),
+				buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
+				cancelIndex : 1,
+				success : didConfirmHide
+			});
+		}
 	} else {
-		$.uihelper.showDialog({
-			message : String.format($.strings.doctorSettingsMsgRemoveConfirm, doctor.title),
-			buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
-			cancelIndex : 1,
-			success : didConfirmRemove
-		});
+		if (doctor.doctor_type != apiCodes.doctor_type_manual) {
+			$.uihelper.showDialog({
+				message : $.strings.doctorSettingsMsgRemoveRestricted
+			});
+		} else {
+			$.uihelper.showDialog({
+				message : String.format($.strings.doctorSettingsMsgRemoveConfirm, doctor.title),
+				buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
+				cancelIndex : 1,
+				success : didConfirmRemove
+			});
+		}
 	}
 }
+
+function didConfirmHide() {
+	var data = _.pick(doctor, ["id", "doctor_type", "first_name", "last_name", "doctor_dea", "phone", "fax", "addressline1", "addressline2", "zip", "city", "state", "notes"]);
+	data.is_hidden = "1";
+	_.extend(data, {
+		method : "doctors_update",
+		shouldUpdate : true
+	});
+	$.http.request({
+		method : "doctors_update",
+		params : {
+			data : [{
+				doctors : _.omit(data, ["method", "shouldUpdate"])
+			}]
+		},
+		passthrough : data,
+		success : didHideDoctor
+	});
+}
+
+function didHideDoctor(result, passthrough) {
+	/**
+	 * extend the source object
+	 */
+	_.extend(doctor, passthrough);
+	$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
+		landing_page : true
+	}).toJSON());}
 
 function didConfirmRemove() {
 	$.http.request({
@@ -273,8 +326,6 @@ function didDeleteDoctor(result, passthrough) {
 	 * doing this before success may be a issue on failure api calls
 	 */
 	doctor.method = "doctors_delete";
-	//close
-	//	$.app.navigator.closeToRoot(); /*doesn't work*/
 
 	$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
 		landing_page : true
