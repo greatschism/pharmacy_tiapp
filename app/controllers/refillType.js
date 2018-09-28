@@ -620,6 +620,9 @@ function updatePickupOption() {
 		if (Alloy.CFG.show_pickup_timegroup_option == "1") {
 			getPickupTimegroup();
 		}
+		else {
+			updatePickTimegroupView(true);
+		}
 
 		break;
 	case apiCodes.pickup_mode_mail_order:
