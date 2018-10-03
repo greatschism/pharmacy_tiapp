@@ -601,7 +601,6 @@ var Helper = {
 
 		Ti.Media.showCamera({
 			allowEditing : true,
-			autohide : OS_IOS,
 			showControls : OS_IOS,
 			saveToPhotoGallery : false,
 			mediaTypes : [Titanium.Media.MEDIA_TYPE_PHOTO],
