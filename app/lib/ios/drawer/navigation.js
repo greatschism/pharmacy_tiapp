@@ -94,7 +94,6 @@ function Navigation(args) {
 	 * @return {Controller} Returns the new controller
 	 */
 	this.open = function(params) {
-		console.log("It is open now!!!");
 
 		if (Alloy.CFG.homescreen_logo_enabled === "homescreenLogoEnabled") {
 
