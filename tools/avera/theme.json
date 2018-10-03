@@ -13,7 +13,9 @@
 					"modifiters": "g",
 					"value": ""
 				}
-			]
+			],
+			"latest_pickup_timegroup": "latestPickupTimegroup",
+			"show_pickup_timegroup_option": "0"
 		}
 	},
 	"values": {
