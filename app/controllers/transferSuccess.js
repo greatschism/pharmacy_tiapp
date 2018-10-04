@@ -83,5 +83,4 @@ function handleEvent(e) {
 	$.analyticsHandler.handleEvent($.ctrlShortCode, e);
 }
 
-exports.focus = focus; 
-exports.backButtonHandler = didClickDone;
+exports.focus = focus;

@@ -488,102 +488,14 @@ var Helper = {
 	 * @param height to resize
 	 */
 	openCamera : function(callback, callbackError, window, width, height, cardFormat) {
-
-		var cameraBox;
-
-		if(cardFormat) {
-			cameraBox = Titanium.UI.createView({
-				width : 260,
-				height : 200,
-				borderColor : '#0095FF',
-				borderWidth : 7,
-				borderRadius : 10
-			});
-		} else {
-			cameraBox = Titanium.UI.createView({
-				width : 260,
-				height : 400,
-				borderColor : '#0095FF',
-				borderWidth : 7,
-				borderRadius : 10
-			});
-		}
-
-		var overlay;
-
 		if(OS_ANDROID) {
-			overlay = Titanium.UI.createView();
-			overlay.add(cameraBox);
-
-			var button = Titanium.UI.createButton({
-				color : '#fff',
-				bottom : 10,
-				width : 301,
-				height : 57,
-				font : {
-					fontSize : 20,
-					fontWeight : 'bold',
-					fontFamily : 'Helvetica Neue'
-				},
-				title : Alloy.Globals.strings.cameraTakePhoto
-			});
-
-			var messageView = Titanium.UI.createView({
-				height : 30,
-				width : 250,
-				visible : false
-			});
-
-			var indView = Titanium.UI.createView({
-				height : 30,
-				width : 250,
-				backgroundColor : '#000',
-				borderRadius : 10,
-				opacity : 0.7
-			});
-			messageView.add(indView);
-
-			// message
-			var message = Titanium.UI.createLabel({
-				text : Alloy.Globals.strings.cameraPictureTaken,
-				color : '#fff',
-				font : {
-					fontSize : 20,
-					fontWeight : 'bold',
-					fontFamily : 'Helvetica Neue'
-				},
-				width : 'auto',
-				height : 'auto'
-			});
-			messageView.add(message);
-
-			button.addEventListener('click', function() {
-				cameraBox.borderColor = 'white';
-				Ti.Media.takePicture();
-				messageView.animate({
-					visible : true
-				});
-				setTimeout(function() {
-					cameraBox.borderColor = '#0095FF';
-					messageView.animate({
-						visible : false
-					});
-				}, 500);
-			});
-
-			overlay.add(button);
-			overlay.add(messageView);
-
 			if (!Ti.Filesystem.isExternalStoragePresent()) {
 				Helper.showDialog({
 					message : Alloy.Globals.strings.msgExternalStorageError
 				});
 				callbackError();
 			}
-
 		} else {
-			overlay = Titanium.UI.createView({touchEnabled: false});
-			overlay.add(cameraBox);
 			var authorization = Ti.Media.cameraAuthorization;
 			if (authorization == Ti.Media.CAMERA_AUTHORIZATION_DENIED) {
 				Helper.showDialog({
@@ -598,13 +510,10 @@ var Helper = {
 			}
 		}
 
-
 		Ti.Media.showCamera({
 			allowEditing : true,
-			showControls : OS_IOS,
 			saveToPhotoGallery : false,
 			mediaTypes : [Titanium.Media.MEDIA_TYPE_PHOTO],
-			overlay : overlay,
 			success : function didSuccess(e) {
 				var blob = e.media;
 				if (blob) {
@@ -622,7 +531,6 @@ var Helper = {
 				callbackError();
 			}
 		});
-		
 	},
 
 	/**
