@@ -559,6 +559,7 @@ function prepareList() {
 	var debugCounterOOS = 0;
 	var debugCounterPF = 0;
 
+	if (args.navigationFrom !== "medSync" && args.navigationFrom !== "specialtyGrouping" ) {
 	Alloy.Collections.prescriptions.each(function(prescription) {
 		/**
 		 * If the user don't pick up the prescription after the restock period, DAYS_TO_RESTOCK – (TODAY_DATE - LAST_FILLED_DATE)
@@ -748,6 +749,7 @@ function prepareList() {
 		sectionHeaders[rowParams.section] += rowParams.filterText;
 		sections[rowParams.section].push(row);
 	});
+	}
 
 	/*
 	 * MCE-719 MedSync Prescriptions List
