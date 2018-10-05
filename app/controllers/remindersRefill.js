@@ -347,6 +347,7 @@ function didClickTableView(e) {
 		break;
 	case 3:
 		//prescriptions
+		//	When a user taps add we are going to NOT useCache because we DONT want to show hidden scripts, and if they are alrady fetched, then we will show them here!
 		$.app.navigator.open({
 			titleid : "titlePrescriptionsAdd",
 			ctrl : "prescriptions",
@@ -357,11 +358,11 @@ function didClickTableView(e) {
 					is_specialty_store : ["1"]
 				},
 				patientSwitcherDisabled : true,
-				showHiddenPrescriptions : true,
+				showHiddenPrescriptions : false,
 				validator : "none",
 				selectable : true,
 				minLength : 1,
-				useCache : true,
+				useCache : false,
 				selectedItems : _.pluck(currentData.prescriptions, "id"),
 				prescriptions : selectedPrescriptions,
 				navigationFrom : "refillReminders"

@@ -419,6 +419,7 @@ function didClickAdd(e) {
 	if (firstLaunchReminders) {
 		$.utilities.setProperty(Alloy.CFG.first_launch_med_reminders, false, "bool", false);
 	}
+	//	When a user taps add we are going to NOT useCache because we DONT want to show hidden scripts, and if they are alrady fetched, then we will show them here!
 	$.app.navigator.open({
 		titleid : "titleRemindersMedPrescriptions",
 		ctrl : "prescriptions",
@@ -437,11 +438,11 @@ function didClickAdd(e) {
 			sectionHeaderViewDisabled : true,
 			showMedReminderTooltip : firstLaunchReminders,
 			patientSwitcherDisabled : true,
-			showHiddenPrescriptions : true,
+			showHiddenPrescriptions : false,
 			validator : "medReminder",
 			selectable : true,
 			minLength : 1,
-			useCache : true,
+			useCache : false,
 			navigationFrom : ""
 		},
 		stack : true
