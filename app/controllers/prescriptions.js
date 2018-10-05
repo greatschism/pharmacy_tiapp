@@ -2534,8 +2534,7 @@ function didClickAddPresc(e) {
 	$.app.navigator.open({
 		titleid : "titlePrescriptionsAdd",
 		ctrl : "familyMemberAddPresc",
-		ctrlArguments : $.patientSwitcher.get().pick(["first_name", "last_name", "birth_date"]),
-		stack : true
+		ctrlArguments : $.patientSwitcher.get().pick(["first_name", "last_name", "birth_date"])
 	});
 }
 
