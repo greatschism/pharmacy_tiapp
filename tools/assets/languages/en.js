@@ -768,6 +768,7 @@ module.exports = {
 		"accountSectionLocationSettings" : "Location settings",
 		"accountSectionSignin" : "Sign-in",
 		"accountSectionPaymentOptions" : "Payment Options",
+		"accountSectionHomeStore" : "Home Store",
 		"accountSuccessBtnContactSupport" : "Contact support",
 		"accountSuccessBtnHelp" : "Help",
 		"accountSuccessBtnViewAgreements" : "Agreements and Notices",
@@ -808,6 +809,7 @@ module.exports = {
 		"accountAddCC" : "Add",
 		"accountInfoCC" : "%s ending with ***%s",
 		"accountNoCC" : "No card available",
+		"accountNoHomeStore" : "No home store linked",
 
 		"registerLbl" : "Are you managing prescriptions for yourself, your child, or another adult?",
 		"registerBtnMyself" : "Myself",

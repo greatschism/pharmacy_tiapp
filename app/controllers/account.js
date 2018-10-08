@@ -45,6 +45,9 @@ function init() {
     if(Alloy.CFG.show_credit_card) {
 		getCreditCardInfo();
 	}
+	if(Alloy.CFG.show_home_store) {
+		getHomeStore();
+	}
 }
 
 function setAccessibilityLabelOnSwitch(switchObj , strValue) {
@@ -435,8 +438,9 @@ function didGetCreditCardInfo(result, passthrough) {
 		};
 		var creditCardRow = Alloy.createController("itemTemplates/creditCardInfo", params);
 		creditCardRow.on("clickedit", didClickCCEdit);
-		$.tableView.appendRow(creditCardRow.getView());
+		$.paymentOptionsSection.add(creditCardRow.getView());
 	};
+	$.tableView.appendSection($.paymentOptionsSection);
 	$.app.navigator.hideLoader();
 }
 
@@ -453,8 +457,55 @@ function didFailureInCreditCardInfo(result, passthrough) {
 	};
 	var creditCardRow = Alloy.createController("itemTemplates/creditCardInfo", params);
 	creditCardRow.on("clickedit", didClickCCEdit);
-	$.tableView.appendRow(creditCardRow.getView());
+	$.paymentOptionsSection.add(creditCardRow.getView());
+	$.tableView.appendSection($.paymentOptionsSection);
 	$.app.navigator.hideLoader();
+}
+
+function getHomeStore(){
+	httpClient = $.http.request({
+		method : "stores_list",
+		params : {
+			data : [{
+				stores : {
+					"view_type": "LIST",
+				}
+			}]
+		},
+		errorDialogEnabled : false,
+		showLoader : false,
+		success : didGetHomeStore
+	});
+}
+
+function didGetHomeStore(e){
+	console.log("result in HomeStore: " + JSON.stringify(e));
+	var stores = e.data.stores.stores_list;
+	var homeStore = _.findWhere(stores, {"ishomepharmacy": "1"});
+	if (homeStore) {
+		/**
+		 *	if home store is linked
+		 * 	with loggedin account 
+		 */
+		_.extend(homeStore, {
+			title : Alloy.CFG.is_storename_enabled == "1" ? $.utilities.ucword(homeStore.store_name) : $.utilities.ucword(homeStore.addressline1),
+			subtitle : (Alloy.CFG.is_storename_enabled == "1" ? ($.utilities.ucword(homeStore.addressline1) + ", "+ $.utilities.ucword(homeStore.city)) : $.utilities.ucword(homeStore.city)) + ", " + homeStore.state + ", " + homeStore.zip,
+			detailType : "inactive",
+			latitude : Number(homeStore.latitude),
+			longitude : Number(homeStore.longitude)
+		});
+	} else{
+		/**
+		 *	if home store is not linked
+		 * 	with loggedin account 
+		 */
+		homeStore = {};
+		homeStore.title = Alloy.Globals.strings.accountNoHomeStore;
+		homeStore.titleClasses = ["left", "h6"];
+	};
+	var homeStoreRow = Alloy.createController("itemTemplates/masterDetail", homeStore);
+	$.homeStoreSection.add(homeStoreRow.getView());
+	$.tableView.appendSection($.homeStoreSection);
 }
 
 exports.init = init;

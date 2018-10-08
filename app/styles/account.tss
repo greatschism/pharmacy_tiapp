@@ -68,3 +68,6 @@
 "#paymentOptionsLbl":{
 	text : Alloy.Globals.strings.accountSectionPaymentOptions
 }
+"#homeStoreLbl":{
+	text : Alloy.Globals.strings.accountSectionHomeStore
+}
