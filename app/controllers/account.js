@@ -474,12 +474,12 @@ function getHomeStore(){
 		},
 		errorDialogEnabled : false,
 		showLoader : false,
-		success : didGetHomeStore
+		success : didGetHomeStore,
+		failure : didGetNoHomeStore
 	});
 }
 
 function didGetHomeStore(e){
-	console.log("result in HomeStore: " + JSON.stringify(e));
 	var stores = e.data.stores.stores_list;
 	var homeStore = _.findWhere(stores, {"ishomepharmacy": "1"});
 	if (homeStore) {
@@ -503,6 +503,19 @@ function didGetHomeStore(e){
 		homeStore.title = Alloy.Globals.strings.accountNoHomeStore;
 		homeStore.titleClasses = ["left", "h6"];
 	};
+	var homeStoreRow = Alloy.createController("itemTemplates/masterDetail", homeStore);
+	$.homeStoreSection.add(homeStoreRow.getView());
+	$.tableView.appendSection($.homeStoreSection);
+}
+
+function didGetNoHomeStore(e) {
+	/**
+	 *	if home store is not linked
+	 * 	with loggedin account 
+	 */
+	var homeStore = {};
+	homeStore.title = Alloy.Globals.strings.accountNoHomeStore;
+	homeStore.titleClasses = ["left", "h6"];
 	var homeStoreRow = Alloy.createController("itemTemplates/masterDetail", homeStore);
 	$.homeStoreSection.add(homeStoreRow.getView());
 	$.tableView.appendSection($.homeStoreSection);
