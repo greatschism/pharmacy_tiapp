@@ -105,18 +105,4 @@
 			</View>
 		</FooterView>
 	</TableView>
-	<TableViewSection id="paymentOptionsSection" if="Alloy.CFG.show_credit_card">
-		<HeaderView>
-			<View class="margin-top min-height inactive-light-bg-color">
-				<Label id="paymentOptionsLbl" class="margin-left right-25 h3 inactive-fg-color" />
-			</View>
-		</HeaderView>
-	</TableViewSection>
-	<TableViewSection id="homeStoreSection" if="Alloy.CFG.show_home_store">
-		<HeaderView>
-			<View class="margin-top min-height inactive-light-bg-color">
-				<Label id="homeStoreLbl" class="margin-left right-25 h3 inactive-fg-color" />
-			</View>
-		</HeaderView>
-	</TableViewSection>
 </Alloy>

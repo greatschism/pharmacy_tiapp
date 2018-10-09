@@ -217,7 +217,8 @@
 		"ti.switch": "1.0",
 		"ti.textarea": "1.0",
 		"ti.textfield": "1.0",
-		"ti.tooltip": "1.0"
+		"ti.tooltip": "1.0",
+		"ti.tableviewsection": "1.0"
 	},
 	"backbone": "1.1.2"
 }

@@ -5,7 +5,9 @@ var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     touchID = require("touchid"),
     isWindowOpen,
-    phone_formatted;
+    phone_formatted,
+    paymentOptionsSection,
+    homeStoreSection;
 
 function init() {
 	$.patientSwitcher.set({
@@ -43,9 +45,11 @@ function init() {
     setAccessibilityLabelOnSwitch($.keepMeSignedInSwt, $.strings.accountLblKeepMeSignedIn);
     $.app.navigator.hideLoader();
     if(Alloy.CFG.show_credit_card) {
+		paymentOptionsSection = Alloy.createWidget("ti.tableviewsection", "widget", { "headerText": Alloy.Globals.strings.accountSectionPaymentOptions });
 		getCreditCardInfo();
 	}
 	if(Alloy.CFG.show_home_store) {
+		homeStoreSection = Alloy.createWidget("ti.tableviewsection", "widget", { "headerText": Alloy.Globals.strings.accountSectionHomeStore });
 		getHomeStore();
 	}
 }
@@ -433,15 +437,12 @@ function didGetCreditCardInfo(result, passthrough) {
 	  
 	  	var params = {
 			hasCard : true,
+			sectionEnd : (i == result.data.CreditCard.length-1),		//	add section to table after last card added
 			rightButtonText : Alloy.Globals.strings.accountEditCC,
 			creditCardInfo : creditCardInfo
 		};
-		var creditCardRow = Alloy.createController("itemTemplates/creditCardInfo", params);
-		creditCardRow.on("clickedit", didClickCCEdit);
-		$.paymentOptionsSection.add(creditCardRow.getView());
+		addCreditCardRowInTable(params);
 	};
-	$.tableView.appendSection($.paymentOptionsSection);
-	$.app.navigator.hideLoader();
 }
 
 function didClickCCEdit() {
@@ -453,13 +454,20 @@ function didClickCCEdit() {
 function didFailureInCreditCardInfo(result, passthrough) {
 	var params = {
 		hasCard : false,
+		sectionEnd : true,
 		rightButtonText : Alloy.Globals.strings.accountAddCC
 	};
+	addCreditCardRowInTable(params);
+}
+
+function addCreditCardRowInTable(params) {
 	var creditCardRow = Alloy.createController("itemTemplates/creditCardInfo", params);
 	creditCardRow.on("clickedit", didClickCCEdit);
-	$.paymentOptionsSection.add(creditCardRow.getView());
-	$.tableView.appendSection($.paymentOptionsSection);
-	$.app.navigator.hideLoader();
+	paymentOptionsSection.addRow(creditCardRow.getView());
+	if (params.sectionEnd) {
+		$.tableView.appendSection(paymentOptionsSection.getSection());
+		$.app.navigator.hideLoader();
+	};
 }
 
 function getHomeStore(){
@@ -494,18 +502,12 @@ function didGetHomeStore(e){
 			latitude : Number(homeStore.latitude),
 			longitude : Number(homeStore.longitude)
 		});
+		var homeStoreRow = Alloy.createController("itemTemplates/masterDetail", homeStore);
+		homeStoreSection.addRow(homeStoreRow.getView());
+		$.tableView.appendSection(homeStoreSection.getSection());
 	} else{
-		/**
-		 *	if home store is not linked
-		 * 	with loggedin account 
-		 */
-		homeStore = {};
-		homeStore.title = Alloy.Globals.strings.accountNoHomeStore;
-		homeStore.titleClasses = ["left", "h6"];
+		didGetNoHomeStore();
 	};
-	var homeStoreRow = Alloy.createController("itemTemplates/masterDetail", homeStore);
-	$.homeStoreSection.add(homeStoreRow.getView());
-	$.tableView.appendSection($.homeStoreSection);
 }
 
 function didGetNoHomeStore(e) {
@@ -517,8 +519,8 @@ function didGetNoHomeStore(e) {
 	homeStore.title = Alloy.Globals.strings.accountNoHomeStore;
 	homeStore.titleClasses = ["left", "h6"];
 	var homeStoreRow = Alloy.createController("itemTemplates/masterDetail", homeStore);
-	$.homeStoreSection.add(homeStoreRow.getView());
-	$.tableView.appendSection($.homeStoreSection);
+	homeStoreSection.addRow(homeStoreRow.getView());
+	$.tableView.appendSection(homeStoreSection.getSection());
 }
 
 exports.init = init;
