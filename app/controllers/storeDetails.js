@@ -185,7 +185,9 @@ function didClickRefill(e) {
 			ctrl : "prescriptions",
 			ctrlArguments : {
 				filters : {
-					refill_status : [Alloy.CFG.apiCodes.refill_status_in_process, Alloy.CFG.apiCodes.refill_status_ready]
+					refill_status : [Alloy.CFG.apiCodes.refill_status_in_process, Alloy.CFG.apiCodes.refill_status_ready],
+					schedule : ["2"],
+					is_refill_allowed : ["0"]
 				},
 				selectable : true,
 				minLength : 1,

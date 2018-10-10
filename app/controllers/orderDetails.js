@@ -57,7 +57,9 @@ function didClickAdd(e) {
 		ctrlArguments : {
 			filters : {
 				id : _.pluck(prescriptions, "id"),
-				refill_status : [apiCodes.refill_status_in_process, apiCodes.refill_status_ready]
+				refill_status : [apiCodes.refill_status_in_process, apiCodes.refill_status_ready],
+				schedule : ["2"],
+				is_refill_allowed : ["0"]
 			},
 			prescriptions : selectedPrescriptions,
 			patientSwitcherDisabled : true,
