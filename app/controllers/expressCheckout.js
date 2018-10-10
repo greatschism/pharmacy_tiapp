@@ -27,7 +27,7 @@ function init() {
 
 function getCreditCardInfo() {
 	$.http.request({
-		method : "payments_credit_card_get",
+		method : "payments_creditcard_get",
 		params : {
 			data : [
 				{

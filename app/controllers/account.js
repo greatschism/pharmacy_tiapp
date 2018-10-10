@@ -44,14 +44,6 @@ function init() {
     setAccessibilityLabelOnSwitch($.hideZeroRefillPrescriptionSwt, $.strings.accountLblHideZeroRefillPrescription);
     setAccessibilityLabelOnSwitch($.keepMeSignedInSwt, $.strings.accountLblKeepMeSignedIn);
     $.app.navigator.hideLoader();
-    if(Alloy.CFG.show_credit_card) {
-		paymentOptionsSection = Alloy.createWidget("ti.tableviewsection", "widget", { "headerText": Alloy.Globals.strings.accountSectionPaymentOptions });
-		getCreditCardInfo();
-	}
-	if(Alloy.CFG.show_home_store) {
-		homeStoreSection = Alloy.createWidget("ti.tableviewsection", "widget", { "headerText": Alloy.Globals.strings.accountSectionHomeStore });
-		getHomeStore();
-	}
 }
 
 function setAccessibilityLabelOnSwitch(switchObj , strValue) {
@@ -83,6 +75,16 @@ function setAccountValues(){
 		$.languageInfoView.accessibilityLabel = $.languagePromptLbl.text + "  " + $.languageReplyLbl.text;
 		$.languagePicker.setItems(Alloy.Models.language.get("code_values"));		
 	};
+	if(Alloy.CFG.show_credit_card) {
+		$.tableView.deleteSection(4);
+		paymentOptionsSection = Alloy.createWidget("ti.tableviewsection", "widget", { "headerText": Alloy.Globals.strings.accountSectionPaymentOptions });
+		getCreditCardInfo();
+	}
+	if(Alloy.CFG.show_home_store) {
+		$.tableView.deleteSection(4);
+		homeStoreSection = Alloy.createWidget("ti.tableviewsection", "widget", { "headerText": Alloy.Globals.strings.accountSectionHomeStore });
+		getHomeStore();
+	}
 }
 
 function getTimeZone(currentPatient) {
@@ -412,7 +414,7 @@ function terminate() {
 
 function getCreditCardInfo(passthrough) {
 	$.http.request({
-		method : "payments_credit_card_get",
+		method : "payments_creditcard_get",
 		params : {
 			data : [
 				{
