@@ -4,7 +4,11 @@
 "#tableView":{
 	analyticsId: "DoctorsList"
 },
-"#optionsMenu":{
+"#optionsMenu[if=Alloy.CFG.is_doctorsremove_enabled]":{
 	options: [Alloy.Globals.strings.doctorsOptMenuRefresh, Alloy.Globals.strings.doctorsOptMenuUnhide, Alloy.Globals.strings.dialogBtnCancel],
 	cancel: 3
+},
+"#optionsMenu[if=!Alloy.CFG.is_doctorsremove_enabled]":{
+	options: [Alloy.Globals.strings.doctorsOptMenuRefresh, Alloy.Globals.strings.dialogBtnCancel],
+	cancel: 2
 }

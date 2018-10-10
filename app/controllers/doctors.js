@@ -419,7 +419,7 @@ function didClickOptionMenu(e) {
 		getDoctors();
 		break;
 	case 1:
-		unhideDoctors();
+		Alloy.CFG.is_doctorsremove_enabled ? unhideDoctors() :  {} ;
 		break;
 	}
 }

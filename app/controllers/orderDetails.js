@@ -389,7 +389,7 @@ function updatePickupOptionRow() {
 			$.tableView.updateRow(row, $.pickupOptionRow.getView());
 
 		} else {
-			
+
 			logger.debug("\n\n ");
 			store = {};
 			Alloy.Globals.isMailOrderService = true;
@@ -449,11 +449,14 @@ function updateDisplay() {
 			});
 			$.pickupOptionRow.on("clickdetail", didClickStoreChange);
 		}
+
+		if ($.tableView.getSectionCount() > 2) {
+			$.tableView.deleteSection($.tableView.getSectionCount() - 1);
+		}
+
 		break;
 	}
 	$.tableView.updateRow(row, $.pickupOptionRow.getView());
-
-	$.tableView.deleteSection($.tableView.getSectionCount() - 1);
 }
 
 function mailOrderCall() {
@@ -515,7 +518,8 @@ function didClickTableView(e) {
 	/**
 	 * validate row by it's className
 	 */
-	if ($.pickupModeRow && e.row.className == "labelWithChild") {
+	logger.debug("\n\n\n\ row 			", JSON.stringify(e), "\n\n\n");
+	if ($.pickupModeRow && e.row.className == "labelWithChild" && e.index == 1) {
 		$.pickupModePicker.show();
 	} else if ($.pickupTimegroupRow && e.row.className == "labelWithChild") {
 		$.pickupTimegroupPicker.show();
@@ -635,6 +639,7 @@ function setPickupTimegroup() {
 		lblClasses : ["h4", "margin-left", "margin-top", "margin-bottom"],
 		hasChild : true
 	});
+
 	$.pickupTgSection.add($.pickupTimegroupRow.getView());
 	// }
 	//selected options value
@@ -654,7 +659,7 @@ function setPickupTimegroup() {
 function updatePickupTimegroupRow(e) {
 	logger.debug("\n\n\n  in updatePickupTimegroupRow", JSON.stringify(e, null, 4), "\n\n\n");
 	Alloy.Models.pickupTimegroup.set("selected_code_value", e.data.code_value);
-	var row = OS_IOS ? $.prescSection.rowCount + $.pickupSection.rowCount + $.pickupTgSection.rowCount : $.pickuptimegroupRow.getView();
+	var row = OS_IOS ? $.prescSection.rowCount + $.pickupSection.rowCount + $.pickupTgSection.rowCount : $.pickupTimegroupRow.getView();
 	//nullify last instance
 	$.pickupTimegroupRow = null;
 	//point to new instance
