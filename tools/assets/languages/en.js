@@ -768,7 +768,7 @@ module.exports = {
 		"accountSectionLocationSettings" : "Location settings",
 		"accountSectionSignin" : "Sign-in",
 		"accountSectionPaymentOptions" : "Payment Options",
-		"accountSectionHomeStore" : "Home Store",
+		"accountSectionHomeStore" : "Home Pharmacy",
 		"accountSuccessBtnContactSupport" : "Contact support",
 		"accountSuccessBtnHelp" : "Help",
 		"accountSuccessBtnViewAgreements" : "Agreements and Notices",
