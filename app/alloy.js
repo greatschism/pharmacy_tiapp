@@ -30,18 +30,7 @@
 	{
 		Alloy.Globals.androidIntent = Ti.Android.currentActivity.intent;		
 	} else {
-		/**
-		 * 	Need to validate other positions for this listeners
-		 */
-		
-		Ti.App.iOS.addEventListener('continueactivity', function(e) {
-			if (e.activityType === "NSUserActivityTypeBrowsingWeb") {
-				Ti.API.info(JSON.stringify(e.webpageURL));
-				if ( typeof e.webpageURL === 'string') {
-					Alloy.Globals.url = e.webpageURL;
-				}
-			}
-		});
+		Ti.App.iOS.addEventListener('continueactivity', require("deeplinkHandler").init);
 	}
 
 
