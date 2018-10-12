@@ -18,7 +18,15 @@ var args = $.args,
 
 function confirmUrlRedirect(url, resumed) {
 
-	var autofillToken = (url.split('token='))[1];
+	
+	var autofillToken 
+	if(OS_ANDROID) {
+		autofillToken = (url.split('token='))[1];
+	} else {
+		autofillToken = (url.split('/a/'))[1];
+	}
+
+
 	if (typeof autofillToken === 'undefined') {
 		//if an autofill token parameter was not received, then bail on the deeplink process
 		Alloy.Globals.url = undefined;
