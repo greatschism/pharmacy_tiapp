@@ -118,20 +118,53 @@ function init() {
 function performDeepLinkAction() {
 	Ti.API.info("performDeepLinkAction() "+ Alloy.Globals.url)
 	if( typeof Alloy.Globals.url === 'string' ) {
-		var navPage = (Alloy.Globals.url.split('page='))[1];
-			navPage =navPage.split('&');
-
-		if(navPage[0] === "prescriptions") {
-			var urlInfo = (navPage[1].split('info='))[1];
-			var urlData = (navPage[2].split('data='))[1];
-
-			//for POC purposes we are simply alerting url GET param values
-			//to extend functionality, these values would be used to elicit specific action/behavior in the app
-			alert("info = "+urlInfo+"  data = "+urlData);
+		
+		var autofillToken = (Alloy.Globals.url.split('token='))[1];
+		if (typeof autofillToken === 'undefined') {
+			//if an autofill token parameter was not received, then bail on the deeplink process
+			Alloy.Globals.url = undefined;
+			return false;
 		}
-
-		//reset Alloy.Globals.url - otherwise the app may think that it hasn't yet acted on the deep link
+		autofillToken = autofillToken.split('&')[0];
+		autofillToken = autofillToken.split('/')[0];
 		Alloy.Globals.url = undefined;
+
+
+		var matchedRX;
+		if(typeof autofillToken !== undefined) {
+			Ti.API.info("autofillToken IS "+ autofillToken)
+			Ti.API.info("Alloy.Collections.prescriptions IS "+ JSON.stringify(Alloy.Collections.prescriptions))
+
+			Alloy.Collections.prescriptions.each(function(prescription) {
+					Ti.API.info("prescription IS "+ JSON.stringify(prescription))
+					Ti.API.info("prescription.rx_number IS "+ prescription.get("rx_number") )
+					Ti.API.info("prescription.rx_number IS "+ prescription.get("uniqueToken") )
+					if (prescription.get("uniqueToken") === autofillToken  ) {
+						//if the deepLink specifies a known autofill token, use this script
+						matchedRX = prescription;
+					} else {
+						//BELOW:  we might be using the rx_nubmer for testing instead of the autofill token
+						// let's accomodate for that case as well.
+						if (prescription.get("rx_number") === autofillToken  ) {
+							Ti.API.info( "rx_number is FOUND!!! "+ autofillToken )
+							matchedRX = prescription;
+						}
+					}
+			})
+			if( typeof matchedRX !== 'undefined') {
+				$.app.navigator.open({
+						titleid : "titlePrescriptionDetails",
+						ctrl : "prescriptionDetails",
+						ctrlArguments : {
+							prescription : matchedRX,
+							canHide : matchedRX.canHide
+						},
+						stack : true
+					});
+			}
+
+			Ti.API.info( "matchedRX is  "+ JSON.stringify(matchedRX) )
+		} 
     }
 }
 
@@ -226,7 +259,6 @@ function focus() {
 		getPromiseTimeOptions();
 	}
 
-	performDeepLinkAction();
 
 	$.utilities.setProperty(Alloy.CFG.show_saved_delivery_info, "0");
 	$.utilities.setProperty(Alloy.CFG.show_updated_card_info, "0");
@@ -1320,6 +1352,9 @@ function prepareList() {
 			$.submitBtn.hide();
 		}
 	}
+
+
+	performDeepLinkAction();
 }
 
 function updateNextPickDate(presc) {

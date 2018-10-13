@@ -26,8 +26,7 @@
         <dict>
             <key>com.apple.developer.associated-domains</key> 
             <array> 
-                <string>applinks:www.qu-byte.com</string> 
-                <string>applinks:o-mjtest.remscripts.com</string> 
+                <string>${ASSOCIATED_DOMAIN}</string> 
             </array>
         </dict>
     </entitlements>

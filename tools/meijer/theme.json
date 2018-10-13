@@ -1,6 +1,7 @@
 {
 	"config": {
 		"global": {
+			"enable_autofill_deep_link" : "enableAutofillDeepLink",
 			"use_alternate_text_benefits_list_order" : "useAlternateTextBenefitsListOrder",
 			"use_alternate_text_benefits_image" : "useAlternateTextBenefitsImage",
 			"use_additional_header_styling" : "useAdditionalHeaderStyling",
