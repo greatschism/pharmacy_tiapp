@@ -24,6 +24,10 @@ function confirmUrlRedirect(url, resumed) {
 		autofillToken = (url.split('token='))[1];
 	} else {
 		autofillToken = (url.split('/a/'))[1];
+		if (typeof autofillToken !== 'undefined') {
+			//modify short linked URL such that it can be parsed the same as android
+			url = (url.split('/a/')[0]) + "?token=" + (url.split('/a/'))[1];
+		}
 	}
 
 
