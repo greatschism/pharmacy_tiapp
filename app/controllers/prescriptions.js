@@ -116,7 +116,7 @@ function init() {
 }
 
 function performDeepLinkAction() {
-	Ti.API.info("performDeepLinkAction() "+ Alloy.Globals.url)
+	logger.debug("performDeepLinkAction() "+ Alloy.Globals.url);
 	if( typeof Alloy.Globals.url === 'string' ) {
 		
 		var autofillToken = (Alloy.Globals.url.split('token='))[1];
@@ -132,13 +132,13 @@ function performDeepLinkAction() {
 
 		var matchedRX;
 		if(typeof autofillToken !== undefined) {
-			Ti.API.info("autofillToken IS "+ autofillToken)
-			Ti.API.info("Alloy.Collections.prescriptions IS "+ JSON.stringify(Alloy.Collections.prescriptions))
+			logger.debug("autofillToken IS "+ autofillToken);
+			logger.debug("Alloy.Collections.prescriptions IS "+ JSON.stringify(Alloy.Collections.prescriptions));
 
 			Alloy.Collections.prescriptions.each(function(prescription) {
-					Ti.API.info("prescription IS "+ JSON.stringify(prescription))
-					Ti.API.info("prescription.rx_number IS "+ prescription.get("rx_number") )
-					Ti.API.info("prescription.rx_number IS "+ prescription.get("uniqueToken") )
+					logger.debug("prescription IS "+ JSON.stringify(prescription));
+					logger.debug("prescription.rx_number IS "+ prescription.get("rx_number") );
+					logger.debug("prescription.rx_number IS "+ prescription.get("uniqueToken") );
 					if (prescription.get("uniqueToken") === autofillToken  ) {
 						//if the deepLink specifies a known autofill token, use this script
 						matchedRX = prescription;
@@ -146,11 +146,11 @@ function performDeepLinkAction() {
 						//BELOW:  we might be using the rx_nubmer for testing instead of the autofill token
 						// let's accomodate for that case as well.
 						if (prescription.get("rx_number") === autofillToken  ) {
-							Ti.API.info( "rx_number is FOUND!!! "+ autofillToken )
+							logger.debug( "rx_number is FOUND!!! "+ autofillToken );
 							matchedRX = prescription;
 						}
 					}
-			})
+			});
 			if( typeof matchedRX !== 'undefined') {
 				$.app.navigator.open({
 						titleid : "titlePrescriptionDetails",
@@ -163,7 +163,7 @@ function performDeepLinkAction() {
 					});
 			}
 
-			Ti.API.info( "matchedRX is  "+ JSON.stringify(matchedRX) )
+			logger.debug( "matchedRX is  "+ JSON.stringify(matchedRX) );
 		} 
     }
 }
@@ -171,7 +171,7 @@ function performDeepLinkAction() {
 
 function focus() {
 
-	Ti.API.info("prescriptions focus")
+	logger.debug("prescriptions focus");
 
 	/*
 	 * avoid null pointer if another controller or another instance of this controller
