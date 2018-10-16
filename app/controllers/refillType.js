@@ -299,8 +299,7 @@ function didRefill(result, passthrough) {
 			pickupMode : Alloy.Models.pickupModes.get("selected_code_value"),
 			signupEnabled : !Alloy.Globals.isLoggedIn && hasSuccess,
 			phone : phone
-		},
-		stack : true
+		}
 	});
 }
 
@@ -555,6 +554,12 @@ function showHideOptions() {
 			$.storeView.visible = true;
 			$.pickupView.add($.storeView);
 		}
+		if (Alloy.CFG.show_pickup_timegroup_option == "1") {
+			//getPickupTimegroup();
+			if (!$.pickupTgHeaderView.visible) {
+				updatePickTimegroupView(false);
+			}
+		}
 		break;
 	case apiCodes.pickup_mode_mail_order:
 		if ($.storeView.visible) {
@@ -564,6 +569,13 @@ function showHideOptions() {
 		if (!$.mailorderView.visible) {
 			$.mailorderView.visible = true;
 			$.pickupView.add($.mailorderView);
+		}
+
+		if (Alloy.CFG.show_pickup_timegroup_option == "1") {
+			//getPickupTimegroup();
+			if ($.pickupTgHeaderView.visible) {
+				updatePickTimegroupView(true);
+			}
 		}
 		break;
 	}
@@ -607,7 +619,8 @@ function updatePickupOption() {
 
 		if (Alloy.CFG.show_pickup_timegroup_option == "1") {
 			getPickupTimegroup();
-		} else {
+		}
+		else {
 			updatePickTimegroupView(true);
 		}
 
@@ -761,12 +774,28 @@ function didGetPickupTimegroup(result, passthrough) {
 
 function updatePickTimegroupView(shouldHide) {
 	if (shouldHide) {
-		$.scrollView.remove($.pickupTgHeaderView);
-		$.pickupTgOptionsView.remove($.pickupTimegroupView);
-		$.pickupTgOptionsView.remove($.pickupTgDividerView);
-		$.pickupTimegroupView = null;
-		$.pickupTgDividerView = null;
-		$.pickupTgHeaderView = null;
+		if ($.pickupTgHeaderView.visible) {
+			// $.scrollView.remove($.pickupTgHeaderView);
+			$.pickupTgOptionsView.remove($.pickupTimegroupView);
+			$.pickupTgOptionsView.remove($.pickupTgDividerView);
+			$.pickupTgHeaderView.visible = false;
+			$.pickupTimegroupView.visible = false;
+			$.pickupTgDividerView.visible = false;
+
+			/*
+			 $.pickupTimegroupView = null;
+			 $.pickupTgDividerView = null;
+			 $.pickupTgHeaderView = null;*/
+		}
+	} else {
+		if (!$.pickupTgHeaderView.visible) {
+			$.pickupTimegroupView.visible = true;
+			$.pickupTgDividerView.visible = true;
+			$.pickupTgHeaderView.visible = true;
+			// $.scrollView.add($.pickupTgHeaderView);
+			$.pickupTgOptionsView.add($.pickupTimegroupView);
+			$.pickupTgOptionsView.add($.pickupTgDividerView);
+		}
 	}
 }
 
@@ -853,7 +882,7 @@ function updatePickupTimegroup(e) {
 
 	Alloy.Models.pickupTimegroup.set("selected_code_value", e.data.code_value);
 	$.pickupTimegroupLbl.text = e.data.code_display;
-	//updatePickupTimegroupOption();
+	updatePickTimegroupView(false);
 }
 
 function updatePickupTimegroupOption() {

@@ -57,7 +57,9 @@ function didClickAdd(e) {
 		ctrlArguments : {
 			filters : {
 				id : _.pluck(prescriptions, "id"),
-				refill_status : [apiCodes.refill_status_in_process, apiCodes.refill_status_ready]
+				refill_status : [apiCodes.refill_status_in_process, apiCodes.refill_status_ready],
+				schedule : ["2"],
+				is_refill_allowed : ["0"]
 			},
 			prescriptions : selectedPrescriptions,
 			patientSwitcherDisabled : true,
@@ -224,7 +226,7 @@ function didGetStore(result, passthrough) {
 	store = result.data.stores;
 	_.extend(store, {
 		title : Alloy.CFG.is_storename_enabled == "1" ? $.utilities.ucword(store.store_name) : $.utilities.ucword(store.addressline1),
-		subtitle : (Alloy.CFG.is_storename_enabled == "1"? ($.utilities.ucword(store.addressline1) + ", "+ $.utilities.ucword(store.city)) : $.utilities.ucword(store.city)) + ", " + store.state + ", " + store.zip
+		subtitle : (Alloy.CFG.is_storename_enabled == "1" ? ($.utilities.ucword(store.addressline1) + ", " + $.utilities.ucword(store.city)) : $.utilities.ucword(store.city)) + ", " + store.state + ", " + store.zip
 	});
 	getOrSetPickupModes();
 }
@@ -389,6 +391,7 @@ function updatePickupOptionRow() {
 			$.tableView.updateRow(row, $.pickupOptionRow.getView());
 
 		} else {
+
 			logger.debug("\n\n ");
 			store = {};
 			Alloy.Globals.isMailOrderService = true;
@@ -448,11 +451,14 @@ function updateDisplay() {
 			});
 			$.pickupOptionRow.on("clickdetail", didClickStoreChange);
 		}
+
+		if ($.tableView.getSectionCount() > 2) {
+			$.tableView.deleteSection($.tableView.getSectionCount() - 1);
+		}
+
 		break;
 	}
 	$.tableView.updateRow(row, $.pickupOptionRow.getView());
-
-	// setPickupTimegroup();
 }
 
 function mailOrderCall() {
@@ -501,7 +507,7 @@ function didGetMailOrderStores(result, passthrough) {
 		_.extend(store, result.data.stores.stores_list[0]);
 		_.extend(store, {
 			title : Alloy.CFG.is_storename_enabled == "1" ? $.utilities.ucword(store.store_name) : $.utilities.ucword(store.addressline1),
-			subtitle : (Alloy.CFG.is_storename_enabled == "1" ? ($.utilities.ucword(store.addressline1) + ", "+ $.utilities.ucword(store.city)) : $.utilities.ucword(store.city)) + ", " + store.state + ", " + store.zip
+			subtitle : (Alloy.CFG.is_storename_enabled == "1" ? ($.utilities.ucword(store.addressline1) + ", " + $.utilities.ucword(store.city)) : $.utilities.ucword(store.city)) + ", " + store.state + ", " + store.zip
 		});
 
 		logger.debug("\n\n\n order details - store last filled\n ", JSON.stringify(result.data.stores.stores_list[0], null, 4));
@@ -514,7 +520,8 @@ function didClickTableView(e) {
 	/**
 	 * validate row by it's className
 	 */
-	if ($.pickupModeRow && e.row.className == "labelWithChild") {
+	logger.debug("\n\n\n\ row 			", JSON.stringify(e), "\n\n\n");
+	if ($.pickupModeRow && e.row.className == "labelWithChild" && e.index == 1) {
 		$.pickupModePicker.show();
 	} else if ($.pickupTimegroupRow && e.row.className == "labelWithChild") {
 		$.pickupTimegroupPicker.show();
@@ -634,6 +641,7 @@ function setPickupTimegroup() {
 		lblClasses : ["h4", "margin-left", "margin-top", "margin-bottom"],
 		hasChild : true
 	});
+
 	$.pickupTgSection.add($.pickupTimegroupRow.getView());
 	// }
 	//selected options value
@@ -653,7 +661,7 @@ function setPickupTimegroup() {
 function updatePickupTimegroupRow(e) {
 	logger.debug("\n\n\n  in updatePickupTimegroupRow", JSON.stringify(e, null, 4), "\n\n\n");
 	Alloy.Models.pickupTimegroup.set("selected_code_value", e.data.code_value);
-	var row = OS_IOS ? $.prescSection.rowCount + $.pickupSection.rowCount + $.pickupTgSection.rowCount : $.pickuptimegroupRow.getView();
+	var row = OS_IOS ? $.prescSection.rowCount + $.pickupSection.rowCount + $.pickupTgSection.rowCount : $.pickupTimegroupRow.getView();
 	//nullify last instance
 	$.pickupTimegroupRow = null;
 	//point to new instance

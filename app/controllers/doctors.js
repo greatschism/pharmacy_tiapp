@@ -6,16 +6,12 @@ var args = $.args,
     swipeOptions,
     currentDoctor,
     defaultImg,
-    isWindowOpen,
-    showHiddenDoctors = false;
+    isWindowOpen;
 
 function init() {
 	defaultImg = $.uihelper.getImage("default_profile").image;
 	swipeOptions = [{
 		action : 1,
-		title : $.strings.doctorsSwipeOptHide
-	}, {
-		action : 2,
 		title : $.strings.doctorsSwipeOptRemove,
 		type : "negative"
 	}];
@@ -68,7 +64,7 @@ function focus() {
 			_.some(rows, function(row, index) {
 				if (row.getParams().id == currentDoctor.id) {
 					var model = Alloy.Collections.doctors.at(index);
-					model.set(_.pick(currentDoctor, ["first_name", "last_name", "doctor_dea", "phone", "fax", "addressline1", "addressline2", "zip", "city", "state", "notes", "image_url"]));
+					model.set(_.pick(currentDoctor, ["first_name", "last_name", "doctor_dea", "phone", "fax", "addressline1", "addressline2", "zip", "city", "state", "notes", "image_url", "is_hidden"]));
 					var newRow = processModel(model);
 					$.tableView.updateRow( OS_IOS ? index : row.getView(), newRow.getView());
 					rows[index] = newRow;
@@ -135,11 +131,7 @@ function didGetPrescriptions(result, passthrough) {
 		 */
 		logger.debug("\n\n\n in for each\t", JSON.stringify(model), " \n\n\n");
 
-		if (showHiddenDoctors) {
-			model.set("is_hidden", 0);
-		}
-
-		if (model.get("is_hidden") == 0) {
+		if (model.get("is_hidden") == "0") {
 			logger.debug("\n\n\n show doc \t", JSON.stringify(model), "\n\n\n");
 			var row = processModel(model);
 			data.push(row.getView());
@@ -147,7 +139,6 @@ function didGetPrescriptions(result, passthrough) {
 		}
 	});
 	$.tableView.setData(data);
-	showHiddenDoctors = showHiddenDoctors == true ? !showHiddenDoctors : showHiddenDoctors;
 	/*
 	 *  reset the swipe flag
 	 *  once a fresh list is loaded
@@ -235,34 +226,63 @@ function didClickSwipeOption(e) {
 
 	switch (e.action) {
 	case 1:
-		doConfirmHide(e);
-		break;
-	case 2:
 		var data = e.data;
-		if (data.doctor_type != apiCodes.doctor_type_manual) {
-			$.uihelper.showDialog({
-				message : $.strings.doctorsMsgRemoveRestricted
-			});
+		/*
+		 * ALBD-160 -> ability to hide/remove doctor
+		 */
+		if (Alloy.CFG.is_doctorsremove_enabled == "1") {
+			if (data.subtitle == $.strings.doctorsLblPrescribedNone || data.subtitle == $.strings.doctorsLblManual) {
+				// remove
+				$.uihelper.showDialog({
+					message : String.format($.strings.doctorsMsgRemoveConfirm, data.title),
+					buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
+					cancelIndex : 1,
+					success : function() {
+						$.http.request({
+							method : "doctors_delete",
+							params : {
+								data : [{
+									doctors : {
+										id : data.id
+									}
+								}]
+							},
+							passthrough : data,
+							success : didDeleteDoctor
+						});
+					}
+				});
+			} else {
+				// hide
+				doConfirmHide(e);
+			}
 		} else {
-			$.uihelper.showDialog({
-				message : String.format($.strings.doctorsMsgRemoveConfirm, data.title),
-				buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
-				cancelIndex : 1,
-				success : function() {
-					$.http.request({
-						method : "doctors_delete",
-						params : {
-							data : [{
-								doctors : {
-									id : data.id
-								}
-							}]
-						},
-						passthrough : data,
-						success : didDeleteDoctor
-					});
-				}
-			});
+			if (data.doctor_type != apiCodes.doctor_type_manual) {
+				$.uihelper.showDialog({
+					message : $.strings.doctorsMsgRemoveRestricted
+				});
+			} else {
+				$.uihelper.showDialog({
+					message : String.format($.strings.doctorsMsgRemoveConfirm, data.title),
+					buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
+					cancelIndex : 1,
+					success : function() {
+						$.http.request({
+							method : "doctors_delete",
+							params : {
+								data : [{
+									doctors : {
+										id : data.id
+									}
+								}]
+							},
+							passthrough : data,
+							success : didDeleteDoctor
+						});
+					}
+				});
+			}
+
 		}
 		break;
 	}
@@ -296,20 +316,26 @@ function hideDoctor(e) {
 
 function unhideDoctors() {
 	var d = {};
+
+	var updateData = [];
 	Alloy.Collections.doctors.each(function(model) {
-		if (model.get("is_hidden") == 1) {
-			model.set("is_hidden", 0);
-			d = model;
+		if (model.get("is_hidden") == "1") {
+			model.set("is_hidden", "0");
+			logger.debug("\n\n\n model    ", JSON.stringify(model), "\n\n\n");
+			updateData.push({
+				"doctors" : model
+			});
 		}
 	});
+
+	logger.debug("\n\n\n updateData    ", JSON.stringify(updateData), "\n\n\n");
 
 	$.http.request({
 		method : "doctors_update",
 		params : {
-			data : [{
-				doctors : d
-			}]
+			data : updateData
 		},
+		passthrough : d,
 		success : didSuccessDoctor
 	});
 }
@@ -393,8 +419,7 @@ function didClickOptionMenu(e) {
 		getDoctors();
 		break;
 	case 1:
-		showHiddenDoctors = true;
-		unhideDoctors();
+		Alloy.CFG.is_doctorsremove_enabled ? unhideDoctors() :  {} ;
 		break;
 	}
 }

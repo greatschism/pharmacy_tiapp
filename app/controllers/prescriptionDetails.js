@@ -110,6 +110,7 @@ function init() {
 			$.autoFillChangeDateSeperator.height = 0;
 		}
 	}
+		
 }
 
 function setAccessibilityLabelOnSwitch(switchObj, strValue) {

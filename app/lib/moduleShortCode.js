@@ -153,6 +153,6 @@ module.exports = {
 	 /**
 	 * Additional Cust Info
 	 */
-	"ADCI" : "additionalCustInfo",
-	"ACID" : "additionalCustInfoDelete"
+	"ADCI" : "ADCI",
+	"ACID" : "ACID"
 };

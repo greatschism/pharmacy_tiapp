@@ -1629,7 +1629,8 @@ function processSections(prescription, daysLeft) {
 				 * if  anticipated_refill_date is <= upcomingRefillDaysBeforeARD - move to ready for refill
 				 * */
 				var anticipatedRefillDate = moment(prescription.get("anticipated_refill_date"), apiCodes.date_format);
-				dueInDays = anticipatedRefillDate.diff(currentDate, "days");
+				//dueInDays = anticipatedRefillDate.diff(currentDate, "days");
+				dueInDays = Math.ceil((anticipatedRefillDate - currentDate)/(60*60*24*1000));
 				if (dueInDays <= parseInt(Alloy.Models.appload.get("upcomingRefillDaysBeforeARD"))) {
 					section = "readyRefill";
 					/**
@@ -2600,8 +2601,7 @@ function didClickAddPresc(e) {
 	$.app.navigator.open({
 		titleid : "titlePrescriptionsAdd",
 		ctrl : "familyMemberAddPresc",
-		ctrlArguments : $.patientSwitcher.get().pick(["first_name", "last_name", "birth_date"]),
-		stack : true
+		ctrlArguments : $.patientSwitcher.get().pick(["first_name", "last_name", "birth_date"])
 	});
 }
 
