@@ -15,7 +15,6 @@ function init() {
 			 * 	does the intent data contain 
 			 * 	a custom url for the meijer app?
 			 */
-			alert(JSON.stringify(Alloy.Globals.androidIntent.data));
 			if (JSON.stringify(Alloy.Globals.androidIntent.data).indexOf("meijerrx://") != -1 && (JSON.stringify(Alloy.Globals.androidIntent.data) !== "\"meijerrx://\"")) {
 				Alloy.Globals.url = JSON.stringify(Alloy.Globals.androidIntent.data);
 				/**
